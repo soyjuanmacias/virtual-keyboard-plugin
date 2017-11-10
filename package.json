@@ -1,9 +1,12 @@
 {
-  "name": "web-virtual-keyboard",
-  "version": "1.0.0",
-  "description": "Simple Virtual keyboard plugin for web applications , based on HTML, javascript and CSS",
-  "main": "index.js",
-  "author": "stephen31",
-  "license": "MIT",
-  "private": false
+    "name": "web-virtual-keyboard",
+    "version": "1.0.0",
+    "description": "Simple Virtual keyboard plugin for web applications , based on HTML, javascript and CSS",
+    "main": "index.js",
+    "author": "stephen31",
+    "license": "MIT",
+    "private": false,
+    "dependencies": {
+        "font-awesome": "^4.7.0"
+    }
 }

@@ -1,4 +1,3 @@
-
 /*
 
     Virtual Keyboard CSS
@@ -7,6 +6,7 @@
 */
 
 .keyboard-container {
+    position: absolute;
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
     font-size: 14px;
     width: 430px;
@@ -27,6 +27,11 @@
     cursor: pointer;
     margin-right: 10px;
     margin-bottom: 3px;
+    transition: transform 0.2s ease;
+}
+
+.keyboard-container .actions-container span:hover {
+    transform: scale(1.5);
 }
 
 .keyboard-container .row {
@@ -45,18 +50,20 @@
     box-sizing: border-box;
     padding: 0 0.5rem;
     margin: 4px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     border-radius: 4px;
     background: #FFF;
     box-shadow: 0px 1px 0px 2px #DDD;
     cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .keyboard-container .row .key:hover {
     box-shadow: 0px 0px 0px 1px #AAA;
+    transform: scale(1.1);
 }
 
 .keyboard-container .row .key:active {
