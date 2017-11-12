@@ -5,6 +5,37 @@
 
 */
 
+
+/* The animation code */
+
+@keyframes show-keyboard {
+    0% {
+        transform: scale(.7);
+        opacity: 0;
+    }
+    45% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    80% {
+        transform: scale(.95);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes hide-keyboard {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(.5);
+        opacity: 0;
+    }
+}
+
 .keyboard-container {
     position: absolute;
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
@@ -15,6 +46,26 @@
     padding: 8px;
     background-color: #EEE;
     box-shadow: 0px 1px 0px 1px #DDD;
+    /* animation-name: keyboardAnimation;
+    animation-duration: 4s; */
+    /* transition: all 0.2s ease; */
+    visibility: hidden;
+    /* display: none; */
+}
+
+.showKeyboard {
+    animation-name: show-keyboard;
+    animation-duration: 1s;
+}
+
+.hideKeyboard {
+    animation-name: hide-keyboard;
+    animation-duration: 1s;
+}
+
+.keyboard-container.visible {
+    /* display: block; */
+    visibility: visible;
 }
 
 .keyboard-container .actions-container {
@@ -54,7 +105,7 @@
     background: #FFF;
     box-shadow: 0px 1px 0px 2px #DDD;
     cursor: pointer;
-    transition: all 0.2s ease;
+    /* transition: all 0.2s ease; */
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
