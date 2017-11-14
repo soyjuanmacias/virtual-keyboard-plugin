@@ -39,7 +39,7 @@ const azertyMapping = [
     { 'key': "", 'action': 'emotes' },
     { 'key': "Space", 'ascii': '32', 'class': 'space-key' },
     { 'key': ".", 'ascii': '46' },
-    { 'key': "Enter", 'class': 'enter-key' },
+    { 'key': "Enter", 'class': 'enter-key', 'action': 'enter' },
 ];
 
 const FIRST_ROW_LENGHT = 10;
@@ -57,6 +57,8 @@ class VirtualKeyboard {
         this.keyboardContainer = null;
         this.actionsContainer = null;
         this.inputCursorPosition = 0;
+        this.rows = [this.row1, this.row2, this.row3, this.row4];
+        this.keys = null;
     }
 
     getInputElement() {
@@ -65,6 +67,35 @@ class VirtualKeyboard {
 
     setInputElement(element) {
         this.currentInputElement = element;
+    }
+
+    enterKeyEvent(key) {
+        key.addEventListener('click', () => {
+            this.currentInputElement.value = this.currentInputElement.value.slice(0, this.inputCursorPosition) +
+                '\n' +
+                this.currentInputElement.value.slice(this.inputCursorPosition);
+            this.incrementCursorPosition();
+        })
+    }
+
+    backSpaceKeyEvent(key) {
+        key.addEventListener('click', () => {
+            this.currentInputElement.value = this.currentInputElement.value.slice(0, this.inputCursorPosition - 1) +
+                this.currentInputElement.value.slice(this.inputCursorPosition);
+            this.decrementCursorPosition();
+        })
+    }
+
+    incrementCursorPosition() {
+        this.inputCursorPosition++;
+        this.currentInputElement.setSelectionRange(this.inputCursorPosition, this.inputCursorPosition);
+        this.currentInputElement.focus();
+    }
+
+    decrementCursorPosition() {
+        this.inputCursorPosition--;
+        this.currentInputElement.setSelectionRange(this.inputCursorPosition, this.inputCursorPosition);
+        this.currentInputElement.focus();
     }
 
     constructKeys(from, to) {
@@ -84,25 +115,30 @@ class VirtualKeyboard {
             if (azertyMapping[j].key) {
                 keys[i].innerHTML = azertyMapping[j].key;
             }
-            keys[i].addEventListener('click', () => {
 
-                // var event = new KeyboardEvent("keypress", { cancelable: true, bubbles: true, key: azertyMapping[j].key});
-                // this.currentInputElement.dispatchEvent(event);
+            if (azertyMapping[j].action === 'enter') {
+                this.enterKeyEvent(keys[i]);
+            }
 
-                this.currentInputElement.value = this.currentInputElement.value.slice(0, this.inputCursorPosition) +
-                    String.fromCharCode(azertyMapping[j].ascii) +
-                    this.currentInputElement.value.slice(this.inputCursorPosition);
-                this.inputCursorPosition++;
-                this.currentInputElement.setSelectionRange(this.inputCursorPosition, this.inputCursorPosition);
-                this.currentInputElement.focus();
-            });
+            if (azertyMapping[j].action === 'backspace') {
+                this.backSpaceKeyEvent(keys[i]);
+            }
+
+            if (!azertyMapping[j].action) {
+                keys[i].addEventListener('click', () => {
+                    // var event = new KeyboardEvent("keypress", { cancelable: true, bubbles: true, key: azertyMapping[j].key});
+                    // this.currentInputElement.dispatchEvent(event);
+                    this.currentInputElement.value = this.currentInputElement.value.slice(0, this.inputCursorPosition) +
+                        String.fromCharCode(azertyMapping[j].ascii) +
+                        this.currentInputElement.value.slice(this.inputCursorPosition);
+                    this.incrementCursorPosition();
+                });
+            }
         }
         return keys;
     }
 
     constructKeyboard() {
-
-        this.rows = [this.row1, this.row2, this.row3, this.row4];
 
         this.keyboardContainer = document.createElement('div');
         this.actionsContainer = document.createElement('div');
@@ -123,16 +159,24 @@ class VirtualKeyboard {
             <i class="fa fa-times" aria-hidden="true"></i>
             </span>`;
 
-        this.rows[0].append(...this.constructKeys(0, FIRST_ROW_LENGHT));
-        this.rows[1].append(...this.constructKeys(10, SECOND_ROW_LENGHT));
-        this.rows[2].append(...this.constructKeys(20, THIRD_ROW_LENGHT));
-        this.rows[3].append(...this.constructKeys(29, FOURTH_ROW_LENGHT));
+        let keysRow0 = this.constructKeys(0, FIRST_ROW_LENGHT);
+        let keysRow1 = this.constructKeys(10, SECOND_ROW_LENGHT);
+        let keysRow2 = this.constructKeys(20, THIRD_ROW_LENGHT);
+        let keysRow3 = this.constructKeys(29, FOURTH_ROW_LENGHT);
+
+        this.keys = keysRow0.concat(keysRow1, keysRow2, keysRow3);
+
+        this.rows[0].append(...keysRow0);
+        this.rows[1].append(...keysRow1);
+        this.rows[2].append(...keysRow2);
+        this.rows[3].append(...keysRow3);
 
         this.keyboardContainer.append(this.actionsContainer, ...this.rows);
         document.body.appendChild(this.keyboardContainer);
 
         this.registerHookListenner();
         console.log(this.keyboardContainer);
+        console.log(this.keys);
     }
 
 
@@ -158,8 +202,6 @@ class VirtualKeyboard {
                 hookLauncher.addEventListener('click', (event) => {
                     targetedInput = document.getElementById(hookLauncher.dataset.targetId)
                     if (targetedInput) {
-
-                        debugger
                         if (!this.targetedInputsElements.has(targetedInput)) {
                             targetedInput.addEventListener('click', (e) => {
                                 this.inputCursorPosition = this.currentInputElement.selectionStart;
