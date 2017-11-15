@@ -2,8 +2,6 @@
     Virtual Keyboard for web app
 */
 
-import azertyMapping from './azertyMapping';
-
 const FIRST_ROW_LENGHT = 10;
 const SECOND_ROW_LENGHT = 10;
 const THIRD_ROW_LENGHT = 9;
@@ -75,6 +73,28 @@ export default class VirtualKeyboard {
     });
   }
   /**
+   * Add an event listener when the upperCase key is clicked
+   * and set the behavior when this event is triggered
+   * @param {any} key
+   * @memberof VirtualKeyboard
+   */
+  upperCaseKeyEvent(key) {
+    key.addEventListener('click', () => {
+      this.setKeyboardRows(Array.of(this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.keysRow3));
+    });
+  }
+  /**
+   * Add an event listener when the lowerCase key is clicked
+   * and set the behavior when this event is triggered
+   * @param {any} key
+   * @memberof VirtualKeyboard
+   */
+  lowerCaseKeyEvent(key) {
+    key.addEventListener('click', () => {
+      this.setKeyboardRows(Array.of(this.lowkeysRow0, this.lowkeysRow1, this.lowkeysRow2, this.keysRow3));
+    });
+  }
+  /**
    * Increment the position of the caret
    * @memberof VirtualKeyboard
    */
@@ -96,43 +116,52 @@ export default class VirtualKeyboard {
    * Contruct an array of HTML elements representing keys
    * @param {number} from
    * @param {number} to
+   * @param {any} mappingArray
    * @return {HTMLElement[]}
    * @memberof VirtualKeyboard
    */
-  constructKeys(from, to) {
+  constructKeys(from, to, mappingArray) {
     const keys = [];
     for (let i = 0, j = from; i < to; i += 1, j += 1) {
       keys[i] = document.createElement('div');
       keys[i].classList.add('key');
-      if (azertyMapping[j].class) {
-        keys[i].classList.add(azertyMapping[j].class);
+      if (mappingArray[j].class) {
+        keys[i].classList.add(mappingArray[j].class);
       }
-      if (azertyMapping[j].action) {
-        keys[i].setAttribute('data-action', azertyMapping[j].action);
+      if (mappingArray[j].action) {
+        keys[i].setAttribute('data-action', mappingArray[j].action);
       }
-      if (azertyMapping[j].ascii) {
-        keys[i].setAttribute('data-ascii', azertyMapping[j].ascii);
+      if (mappingArray[j].ascii) {
+        keys[i].setAttribute('data-ascii', mappingArray[j].ascii);
       }
-      if (azertyMapping[j].key) {
-        keys[i].innerHTML = azertyMapping[j].key;
+      if (mappingArray[j].key) {
+        keys[i].innerHTML = mappingArray[j].key;
       }
 
-      if (azertyMapping[j].action === 'enter') {
+      if (mappingArray[j].action === 'enter') {
         this.enterKeyEvent(keys[i]);
       }
 
-      if (azertyMapping[j].action === 'backspace') {
+      if (mappingArray[j].action === 'backspace') {
         this.backSpaceKeyEvent(keys[i]);
       }
 
-      if (!azertyMapping[j].action) {
+      if (mappingArray[j].action === 'uppercase') {
+        this.upperCaseKeyEvent(keys[i]);
+      }
+
+      if (mappingArray[j].action === 'lowercase') {
+        this.lowerCaseKeyEvent(keys[i]);
+      }
+
+      if (!mappingArray[j].action) {
         keys[i].addEventListener('click', () => {
           // var event = new KeyboardEvent("keypress",
-          // { cancelable: true, bubbles: true, key: azertyMapping[j].key});
+          // { cancelable: true, bubbles: true, key: mappingArray[j].key});
           // this.currentInputElement.dispatchEvent(event);
           this.currentInputElement.value =
             this.currentInputElement.value.slice(0, this.inputCaretPosition) +
-            String.fromCharCode(azertyMapping[j].ascii) +
+            String.fromCharCode(mappingArray[j].ascii) +
             this.currentInputElement.value.slice(this.inputCaretPosition);
           this.incrementCaretPosition();
         });
@@ -144,7 +173,7 @@ export default class VirtualKeyboard {
    * Construct the virtual keyboard
    * @memberof VirtualKeyboard
    */
-  constructKeyboard() {
+  constructKeyboard(keysMapping) {
     this.keyboardContainer = document.createElement('div');
     this.actionsContainer = document.createElement('div');
 
@@ -163,25 +192,45 @@ export default class VirtualKeyboard {
             <span class="close-button">
             <i class="fa fa-times" aria-hidden="true"></i>
             </span>`;
+    const closeButton = this.actionsContainer.querySelector('.close-button');
+    closeButton.addEventListener('click', () => {
+      this.closeKeyboard();
+    });
+    this.lowkeysRow0 = this.constructKeys(0, FIRST_ROW_LENGHT, keysMapping);
+    this.lowkeysRow1 = this.constructKeys(10, SECOND_ROW_LENGHT, keysMapping);
+    this.lowkeysRow2 = this.constructKeys(20, THIRD_ROW_LENGHT, keysMapping);
 
-    const keysRow0 = this.constructKeys(0, FIRST_ROW_LENGHT);
-    const keysRow1 = this.constructKeys(10, SECOND_ROW_LENGHT);
-    const keysRow2 = this.constructKeys(20, THIRD_ROW_LENGHT);
-    const keysRow3 = this.constructKeys(29, FOURTH_ROW_LENGHT);
+    this.upperkeysRow0 = this.constructKeys(29, FIRST_ROW_LENGHT, keysMapping);
+    this.upperkeysRow1 = this.constructKeys(39, SECOND_ROW_LENGHT, keysMapping);
+    this.upperkeysRow2 = this.constructKeys(49, THIRD_ROW_LENGHT, keysMapping);
 
-    this.keys = keysRow0.concat(keysRow1, keysRow2, keysRow3);
+    this.keysRow3 = this.constructKeys(58, FOURTH_ROW_LENGHT, keysMapping);
 
-    this.rows[0].append(...keysRow0);
-    this.rows[1].append(...keysRow1);
-    this.rows[2].append(...keysRow2);
-    this.rows[3].append(...keysRow3);
+    this.keys = this.lowkeysRow0.concat(this.lowkeysRow1, this.lowkeysRow2,
+      this.lowkeysRow3, this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.keysRow3);
+    this.keysRow3 = this.constructKeys(58, FOURTH_ROW_LENGHT, keysMapping);
+    this.setKeyboardRows(Array.of(this.lowkeysRow0,
+      this.lowkeysRow1, this.lowkeysRow2, this.keysRow3));
 
     this.keyboardContainer.append(this.actionsContainer, ...this.rows);
     document.body.appendChild(this.keyboardContainer);
 
     this.registerHookListenner();
-    console.log(this.keyboardContainer);
-    console.log(this.keys);
+    // console.log(this.keyboardContainer);
+    // console.log(this.keys);
+  }
+  /**
+   * Setup the visible keys for the user
+   * @param {any} keysRow
+   * @memberof VirtualKeyboard
+   */
+  setKeyboardRows(keysRow) {
+    for (let i = 0; i < keysRow.length; i += 1) {
+      while (this.rows[i].firstChild) {
+        this.rows[i].removeChild(this.rows[i].firstChild);
+      }
+      this.rows[i].append(...keysRow[i]);
+    }
   }
 
   /**
@@ -217,7 +266,7 @@ export default class VirtualKeyboard {
             if (!this.targetedInputsElements.has(targetedInput)) {
               targetedInput.addEventListener('click', () => {
                 this.inputCaretPosition = this.currentInputElement.selectionStart;
-                console.log('caret position', this.inputCaretPosition);
+                // console.log('caret position', this.inputCaretPosition);
               });
 
               targetedInput.addEventListener('keypress', () => {
@@ -242,5 +291,12 @@ export default class VirtualKeyboard {
         });
       });
     }
+  }
+  /**
+   * Close the virtual keyboard
+   * @memberof VirtualKeyboard
+   */
+  closeKeyboard() {
+    this.keyboardContainer.classList.remove('visible');
   }
 }
