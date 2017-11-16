@@ -80,7 +80,7 @@ export default class VirtualKeyboard {
    */
   upperCaseKeyEvent(key) {
     key.addEventListener('click', () => {
-      this.setKeyboardRows(Array.of(this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.keysRow3));
+      this.setKeyboardRows(Array.of(this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3));
     });
   }
   /**
@@ -91,7 +91,19 @@ export default class VirtualKeyboard {
    */
   lowerCaseKeyEvent(key) {
     key.addEventListener('click', () => {
-      this.setKeyboardRows(Array.of(this.lowkeysRow0, this.lowkeysRow1, this.lowkeysRow2, this.keysRow3));
+      this.setKeyboardRows(Array.of(this.lowkeysRow0, this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3));
+    });
+  }
+
+  numericsKeyEvent(key) {
+    key.addEventListener('click', () => {
+      this.setKeyboardRows(Array.of(this.numericKeysRow0, this.numericKeysRow1, this.numericKeysRow2, this.numericKeysRow3));
+    });
+  }
+
+  extraKeyEvent(key) {
+    key.addEventListener('click', () => {
+      this.setKeyboardRows(Array.of(this.extraKeysRow0, this.extraKeysRow1, this.numericKeysRow2, this.numericKeysRow3));
     });
   }
   /**
@@ -154,6 +166,14 @@ export default class VirtualKeyboard {
         this.lowerCaseKeyEvent(keys[i]);
       }
 
+      if (mappingArray[j].action === 'numerics') {
+        this.numericsKeyEvent(keys[i]);
+      }
+
+      if (mappingArray[j].action === 'extrakeys') {
+        this.extraKeyEvent(keys[i]);
+      }
+
       if (!mappingArray[j].action) {
         keys[i].addEventListener('click', () => {
           // var event = new KeyboardEvent("keypress",
@@ -199,18 +219,29 @@ export default class VirtualKeyboard {
     this.lowkeysRow0 = this.constructKeys(0, FIRST_ROW_LENGHT, keysMapping);
     this.lowkeysRow1 = this.constructKeys(10, SECOND_ROW_LENGHT, keysMapping);
     this.lowkeysRow2 = this.constructKeys(20, THIRD_ROW_LENGHT, keysMapping);
+    this.lowkeysRow3 = this.constructKeys(29, FOURTH_ROW_LENGHT, keysMapping);
 
-    this.upperkeysRow0 = this.constructKeys(29, FIRST_ROW_LENGHT, keysMapping);
-    this.upperkeysRow1 = this.constructKeys(39, SECOND_ROW_LENGHT, keysMapping);
-    this.upperkeysRow2 = this.constructKeys(49, THIRD_ROW_LENGHT, keysMapping);
+    this.upperkeysRow0 = this.constructKeys(35, FIRST_ROW_LENGHT, keysMapping);
+    this.upperkeysRow1 = this.constructKeys(45, SECOND_ROW_LENGHT, keysMapping);
+    this.upperkeysRow2 = this.constructKeys(55, THIRD_ROW_LENGHT, keysMapping);
+    this.upperkeysRow3 = this.constructKeys(64, FOURTH_ROW_LENGHT, keysMapping);
 
-    this.keysRow3 = this.constructKeys(58, FOURTH_ROW_LENGHT, keysMapping);
+    this.numericKeysRow0 = this.constructKeys(70, FIRST_ROW_LENGHT, keysMapping);
+    this.numericKeysRow1 = this.constructKeys(80, SECOND_ROW_LENGHT, keysMapping);
+    this.numericKeysRow2 = this.constructKeys(90, THIRD_ROW_LENGHT, keysMapping);
+    this.numericKeysRow3 = this.constructKeys(99, FOURTH_ROW_LENGHT, keysMapping);
+
+    debugger
+    this.extraKeysRow0 = this.constructKeys(105, FIRST_ROW_LENGHT, keysMapping);
+    this.extraKeysRow1 = this.constructKeys(115, SECOND_ROW_LENGHT, keysMapping);
+    // this.extraKeysRow2 = this.constructKeys(90, THIRD_ROW_LENGHT, keysMapping);
+    // this.extraKeysRow3 = this.constructKeys(99, FOURTH_ROW_LENGHT, keysMapping);
 
     this.keys = this.lowkeysRow0.concat(this.lowkeysRow1, this.lowkeysRow2,
-      this.lowkeysRow3, this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.keysRow3);
-    this.keysRow3 = this.constructKeys(58, FOURTH_ROW_LENGHT, keysMapping);
+      this.lowkeysRow3, this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3,
+      this.numericKeysRow0, this.numericKeysRow1, this.numericKeysRow2, this.extraKeysRow0, this.extraKeysRow1);
     this.setKeyboardRows(Array.of(this.lowkeysRow0,
-      this.lowkeysRow1, this.lowkeysRow2, this.keysRow3));
+      this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3));
 
     this.keyboardContainer.append(this.actionsContainer, ...this.rows);
     document.body.appendChild(this.keyboardContainer);
