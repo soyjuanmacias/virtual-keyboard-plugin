@@ -103,7 +103,8 @@
     margin: 4px;
     border-radius: 4px;
     background: #FFF;
-    box-shadow: 0px 1px 0px 2px #DDD;
+    box-shadow: 0px 2px 0px 1px #AAA;
+    
     cursor: pointer;
     /* transition: all 0.2s ease; */
     -webkit-user-select: none;
@@ -113,13 +114,15 @@
 }
 
 .keyboard-container .row .key:hover {
-    box-shadow: 0px 0px 0px 1px #AAA;
-    transform: scale(1.1);
+  /* box-shadow: 0px 2px 0px 2px #DDD; */
+  
+    /* transform: scale(1.1); */
 }
 
 .keyboard-container .row .key:active {
-    box-shadow: 0px 0px 0px 1px rgb(171, 172, 172);
-    background-color: rgb(192, 192, 192);
+    box-shadow: 0px 0px 1px 0px rgb(138, 138, 138);
+    transform: translateY(2px);
+    /* background-color: rgb(192, 192, 192); */
 }
 
 .keyboard-container .row .key.space-key {

@@ -1,12 +1,35 @@
-module.exports = {
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const path = require('path');
+
+const dev = process.env.NODE_ENV === 'dev';
+
+const config = {
   entry: './src/index.js',
+  watch: dev,
   output: {
-    filename: './dist/bundle.js',
+    path: path.resolve('./dist'),
+    filename: 'bundle.js',
   },
+  devServer: {
+    contentBase: '.',
+    hot: true,
+  },
+  devtool: dev ? 'cheap-module-eval-source-map' : false,
   module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-    }],
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: ['babel-loader'],
+      },
+    ],
   },
+  plugins: [],
 };
+
+// if (!dev) {
+//   config.plugins.push(new UglifyJsPlugin());
+// }
+
+module.exports = config;
+

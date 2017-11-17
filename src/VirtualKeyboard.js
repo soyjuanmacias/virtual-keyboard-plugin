@@ -1,6 +1,8 @@
 /*
     Virtual Keyboard for web app
 */
+import azertyMapping from './azertyMapping';
+import qwertyMapping from './qwertyMapping';
 
 const FIRST_ROW_LENGHT = 10;
 const SECOND_ROW_LENGHT = 10;
@@ -27,6 +29,7 @@ export default class VirtualKeyboard {
     this.inputCaretPosition = 0;
     this.rows = [this.row1, this.row2, this.row3, this.row4];
     this.keys = null;
+    this.registerHookListenner();
   }
   /**
    * Return the reference of the current input Html element to whitch
@@ -94,16 +97,26 @@ export default class VirtualKeyboard {
       this.setKeyboardRows(Array.of(this.lowkeysRow0, this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3));
     });
   }
-
+  /**
+   * Add an event listener when the numerics key is clicked
+   * and set the behavior when this event is triggered
+   * @param {any} key
+   * @memberof VirtualKeyboard
+   */
   numericsKeyEvent(key) {
     key.addEventListener('click', () => {
       this.setKeyboardRows(Array.of(this.numericKeysRow0, this.numericKeysRow1, this.numericKeysRow2, this.numericKeysRow3));
     });
   }
-
+  /**
+   * Add an event listener when the extrakey key is clicked
+   * and set the behavior when this event is triggered
+   * @param {any} key
+   * @memberof VirtualKeyboard
+   */
   extraKeyEvent(key) {
     key.addEventListener('click', () => {
-      this.setKeyboardRows(Array.of(this.extraKeysRow0, this.extraKeysRow1, this.numericKeysRow2, this.numericKeysRow3));
+      this.setKeyboardRows(Array.of(this.extraKeysRow0, this.extraKeysRow1, this.extraKeysRow2, this.numericKeysRow3));
     });
   }
   /**
@@ -231,24 +244,24 @@ export default class VirtualKeyboard {
     this.numericKeysRow2 = this.constructKeys(90, THIRD_ROW_LENGHT, keysMapping);
     this.numericKeysRow3 = this.constructKeys(99, FOURTH_ROW_LENGHT, keysMapping);
 
-    debugger
     this.extraKeysRow0 = this.constructKeys(105, FIRST_ROW_LENGHT, keysMapping);
     this.extraKeysRow1 = this.constructKeys(115, SECOND_ROW_LENGHT, keysMapping);
-    // this.extraKeysRow2 = this.constructKeys(90, THIRD_ROW_LENGHT, keysMapping);
-    // this.extraKeysRow3 = this.constructKeys(99, FOURTH_ROW_LENGHT, keysMapping);
+    this.extraKeysRow2 = this.constructKeys(125, THIRD_ROW_LENGHT, keysMapping);
 
-    this.keys = this.lowkeysRow0.concat(this.lowkeysRow1, this.lowkeysRow2,
-      this.lowkeysRow3, this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3,
-      this.numericKeysRow0, this.numericKeysRow1, this.numericKeysRow2, this.extraKeysRow0, this.extraKeysRow1);
-    this.setKeyboardRows(Array.of(this.lowkeysRow0,
-      this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3));
+    this.keys = this.lowkeysRow0.concat(
+      this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3,
+      this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3,
+      this.numericKeysRow0, this.numericKeysRow1, this.numericKeysRow2,
+      this.extraKeysRow0, this.extraKeysRow1, this.extraKeysRow2,
+    );
+
+    this.setKeyboardRows(Array.of(
+      this.lowkeysRow0,
+      this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3,
+    ));
 
     this.keyboardContainer.append(this.actionsContainer, ...this.rows);
     document.body.appendChild(this.keyboardContainer);
-
-    this.registerHookListenner();
-    // console.log(this.keyboardContainer);
-    // console.log(this.keys);
   }
   /**
    * Setup the visible keys for the user
@@ -283,21 +296,31 @@ export default class VirtualKeyboard {
     this.keyboardContainer.style.top = `${top}px`;
   }
   /**
-   * Add event listener for the virtual keyboard hook
+   * Add event listener on the click for the virtual keyboard hook
    * @memberof VirtualKeyboard
    */
   registerHookListenner() {
     const hookLaunchers = document.querySelectorAll('.virtual-keyboard-hook');
     let targetedInput;
+    let mapping;
     if (hookLaunchers.length > 0) {
       [...hookLaunchers].forEach((hookLauncher) => {
         hookLauncher.addEventListener('click', () => {
           targetedInput = document.getElementById(hookLauncher.dataset.targetId);
-          if (targetedInput) {
+          mapping = hookLauncher.dataset.keyboardMapping;
+          if (targetedInput && mapping) {
             if (!this.targetedInputsElements.has(targetedInput)) {
+              if (this.keyboardContainer) {
+                this.keyboardContainer.parentNode.removeChild(this.keyboardContainer);
+              }
+              if (mapping === 'qwerty') {
+                this.constructKeyboard(qwertyMapping);
+              } else {
+                this.constructKeyboard(azertyMapping);
+              }
+
               targetedInput.addEventListener('click', () => {
                 this.inputCaretPosition = this.currentInputElement.selectionStart;
-                // console.log('caret position', this.inputCaretPosition);
               });
 
               targetedInput.addEventListener('keypress', () => {
