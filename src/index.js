@@ -1,4 +1,4 @@
 
 import VirtualKeyboard from './VirtualKeyboard';
 
-const virtualKeyboard = new VirtualKeyboard();
+const virtualKeyboard = new VirtualKeyboard().registerHookListener();

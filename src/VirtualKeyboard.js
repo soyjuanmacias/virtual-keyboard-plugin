@@ -29,7 +29,6 @@ export default class VirtualKeyboard {
     this.inputCaretPosition = 0;
     this.rows = [this.row1, this.row2, this.row3, this.row4];
     this.keys = null;
-    this.registerHookListenner();
   }
   /**
    * Return the reference of the current input Html element to whitch
@@ -220,15 +219,16 @@ export default class VirtualKeyboard {
       this.rows[i].classList.add('row');
     }
     this.actionsContainer.innerHTML = `<span class="config-button">
-            <i class="fa fa-cog" aria-hidden="true"></i>
-            </span>
-            <span class="close-button">
-            <i class="fa fa-times" aria-hidden="true"></i>
-            </span>`;
+    <i class="fa fa-cog" aria-hidden="true"></i>
+    </span>
+    <span class="close-button">
+    <i class="fa fa-times" aria-hidden="true"></i>
+    </span>`;
     const closeButton = this.actionsContainer.querySelector('.close-button');
     closeButton.addEventListener('click', () => {
       this.closeKeyboard();
     });
+    // console.log(this.actionsContainer);
     this.lowkeysRow0 = this.constructKeys(0, FIRST_ROW_LENGHT, keysMapping);
     this.lowkeysRow1 = this.constructKeys(10, SECOND_ROW_LENGHT, keysMapping);
     this.lowkeysRow2 = this.constructKeys(20, THIRD_ROW_LENGHT, keysMapping);
@@ -299,7 +299,7 @@ export default class VirtualKeyboard {
    * Add event listener on the click for the virtual keyboard hook
    * @memberof VirtualKeyboard
    */
-  registerHookListenner() {
+  registerHookListener() {
     const hookLaunchers = document.querySelectorAll('.virtual-keyboard-hook');
     let targetedInput;
     let mapping;
@@ -309,6 +309,7 @@ export default class VirtualKeyboard {
           targetedInput = document.getElementById(hookLauncher.dataset.targetId);
           mapping = hookLauncher.dataset.keyboardMapping;
           if (targetedInput && mapping) {
+            this.currentInputElement = targetedInput;
             if (!this.targetedInputsElements.has(targetedInput)) {
               if (this.keyboardContainer) {
                 this.keyboardContainer.parentNode.removeChild(this.keyboardContainer);
@@ -318,7 +319,6 @@ export default class VirtualKeyboard {
               } else {
                 this.constructKeyboard(azertyMapping);
               }
-
               targetedInput.addEventListener('click', () => {
                 this.inputCaretPosition = this.currentInputElement.selectionStart;
               });
@@ -326,8 +326,8 @@ export default class VirtualKeyboard {
               targetedInput.addEventListener('keypress', () => {
                 this.inputCaretPosition += 1;
               });
-              this.inputCaretPosition = targetedInput.value.length;
 
+              this.inputCaretPosition = targetedInput.value.length;
               this.targetedInputsElements.add(targetedInput);
             }
             if (this.isvisible && this.currentInputElement &&
