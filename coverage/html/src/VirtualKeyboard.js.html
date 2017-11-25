@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src\VirtualKeyboard.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">src/</a> VirtualKeyboard.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.92% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>152/179</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">79.63% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>43/54</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">65.79% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>25/38</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85.09% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>137/161</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">117×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">131×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-yes">117×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">134×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span></td><td class="text"><pre class="prettyprint lang-js">/*
+    Virtual Keyboard for web app
+*/
+import azertyMapping from './azertyMapping';
+import qwertyMapping from './qwertyMapping';
+&nbsp;
+const FIRST_ROW_LENGHT = 10;<span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span><span class="missing-if-branch" title="else path not taken" >E</span><span class="missing-if-branch" title="else path not taken" >E</span></span>
+const SECOND_ROW_LENGHT = 10;
+const THIRD_ROW_LENGHT = 9;
+const FOURTH_ROW_LENGHT = 6;
+&nbsp;
+/**
+ * Class of Virtual keyboad
+ * @class VirtualKeyboard
+ */
+export default class VirtualKeyboard {
+  /**
+   * Creates an instance of VirtualKeyboard.
+   * @param {any} options
+   * @memberof VirtualKeyboard<span class="branch-1 cbranch-no" title="branch not covered" ></span>
+   */
+  constructor(options) {<span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="else path not taken" >E</span></span>
+    this.options = options || {};
+    this.currentInputElement = null;<span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span></span>
+    this.targetedInputsElements = new Set();
+    this.isvisible = false;
+    this.keyboardContainer = null;
+    this.actionsContainer = null;
+    this.inputCaretPosition = 0;
+    this.rows = [this.row1, this.row2, this.row3, this.row4];
+    this.keys = null;
+  }
+  /**
+   * Add an event listener when the Enter key is clicked
+   * and set the behavior when this event is triggered
+   * @param {HTMLElement} key
+   * @memberof VirtualKeyboard
+   */
+  enterKeyEvent(key) {
+    key.addEventListener('click', () =&gt; {
+      this.currentInputElement.value =
+        `${this.currentInputElement.value.slice(0, this.inputCaretPosition)}\n${this.currentInputElement.value.slice(this.inputCaretPosition)}`;
+      this.incrementCaretPosition();
+    });
+  }
+  /**
+   * Add an event listener when the BackSpace key is clicked
+   * and set the behavior when this event is triggered
+   * @param {HTMLElement} key
+   * @memberof VirtualKeyboard
+   */
+  backSpaceKeyEvent(key) {
+    key.addEventListener('click', () =&gt; {
+      this.currentInputElement.value =
+        this.currentInputElement.value.slice(0, this.inputCaretPosition - 1) +
+        this.currentInputElement.value.slice(this.inputCaretPosition);
+      this.decrementCaretPosition();
+    });
+  }
+  /**
+   * Add an event listener when the upperCase key is clicked
+   * and set the behavior when this event is triggered
+   * @param {any} key
+   * @memberof VirtualKeyboard
+   */
+  upperCaseKeyEvent(key) {
+    key.addEventListener('click', () =&gt; {
+      this.setKeyboardRows(Array.of(this.upperke<span class="fstat-no" title="function not covered" >ysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3));</span>
+    });<span class="cstat-no" title="statement not covered" ></span>
+  }<span class="cstat-no" title="statement not covered" ></span>
+  /**
+   * Add an event listener when the lowerCase key is clicked
+   * and set the behavior when this event is triggered
+   * @param {any} key
+   * @memberof VirtualKeyboard
+   */
+  lowerCaseKeyEvent(key) {
+    key.addEventListener('click', () =&gt; {
+      this.setKeyboardRows(Array.of(this.lowkeysRow0, this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3));
+    });
+  }
+  /**
+   * Add an event listener when the numerics key is clicked
+   * and set the behavior when this event is triggered
+   * @param {any} key<span class="fstat-no" title="function not covered" ></span>
+   * @me<span class="cstat-no" title="statement not covered" >mberof VirtualKeyboard</span>
+   */<span class="cstat-no" title="statement not covered" ></span>
+  numericsKeyEvent(key) {
+    key.addEventListener('click', () =&gt; {
+      this.setKeyboardRows(Array.of(this.numericKeysRow0, this.numericKeysRow1, this.numericKeysRow2, this.numericKeysRow3));
+    });
+  }
+  /**
+   * Add an event listener when the extrakey key is clicked
+   * and set the behavior when this event is triggered
+   * @param {any} key
+   * @memberof VirtualKeyboard
+   */
+  extraKeyEvent(key) {
+    key.addEventListener('click', () =&gt; {
+      this.setKeyboardRows(Array.of(this.extraKeysRow0, this.extraKeysRow1, this.extraKeysRow2, this.numericKeysRow3));
+    });<span class="fstat-no" title="function not covered" ></span>
+  }<span class="cstat-no" title="statement not covered" ></span>
+  /**
+   * Increment the position of the caret
+   * @memberof VirtualKeyboard
+   */
+  incrementCaretPosition() {
+    this.inputCaretPosition += 1;
+    this.currentInputElement.setSelectionRange(this.inputCaretPosition, this.inputCaretPosition);
+    this.currentInputElement.focus();
+  }
+  /**
+   * Decrement the position of the caret
+   * @memberof VirtualKeyboard
+   */
+  decrementCaretPosition() {
+    this.inputCaretPosition -= 1;<span class="fstat-no" title="function not covered" ></span>
+    this<span class="cstat-no" title="statement not covered" >.currentInputElement.setSelectionRange(this.inputCaretPosition, this.inputCaretPosition);</span>
+    this.currentInputElement.focus();
+  }
+  /**
+   * Contruct an array of HTML elements representing keys
+   * @param {number} from
+   * @param {number} to
+   * @param {any} mappingArray
+   * @return {HTMLElement[]}
+   * @memberof VirtualKeyboard
+   */
+  initKeys(from, to, mappingArray) {
+    const keys = [];
+    for (let i = 0, j = from; i &lt; to; i += 1, j += 1) {
+      keys[i] = document.createElement('div');
+      keys[i].classList.add('key');<span class="fstat-no" title="function not covered" ></span>
+      if<span class="cstat-no" title="statement not covered" > (mappingArray[j].class) {</span>
+        keys[i].classList.add(mappingArray[j].class);
+      }
+      if (mappingArray[j].action) {
+        keys[i].setAttribute('data-action', mappingArray[j].action);
+      }
+      if (mappingArray[j].ascii) {
+        keys[i].setAttribute('data-ascii', mappingArray[j].ascii);
+      }
+      if (mappingArray[j].key) {
+        keys[i].innerHTML = mappingArray[j].key;
+      }
+&nbsp;
+      if (mappingArray[j].action === 'enter') {
+        this.enterKeyEvent(keys[i]);
+      }<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+      if (mappingArray[j].action === 'backspace') {
+        this.backSpaceKeyEvent(keys[i]);
+      }
+&nbsp;
+      if (mappingArray[j].action === 'uppercase') {
+        this.upperCaseKeyEvent(keys[i]);
+      }
+&nbsp;
+      if (mappingArray[j].action === 'lowercase') {
+        this.lowerCaseKeyEvent(keys[i]);<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      if (mappingArray[j].action === 'nu</span>merics') {
+        this.numericsKeyEvent(keys[i]);
+      }
+&nbsp;
+      if (mappingArray[j].action === 'extrakeys') {
+        this.extraKeyEvent(keys[i]);
+      }
+&nbsp;
+      if (!mappingArray[j].action) {
+        keys[i].addEventListener('click', () <span class="fstat-no" title="function not covered" >=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          this.currentInputElement.v</span>alue =
+<span class="cstat-no" title="statement not covered" >            this.currentInputElement.value.slice(0, this.inputCaretPosition) +</span>
+<span class="cstat-no" title="statement not covered" >            String.fromCharCode(mappingA</span>rray[j].ascii) +
+            this.currentInputElement.value.slice(this.inputCaretPosition);
+          this.incrementCaretPosition();
+        });
+      }
+    }
+    return keys;
+  }
+  /**
+   * Initialize the keboard container
+   * @memberof VirtualKeyboard
+   */
+  initKeyboardContainer() {
+    this.keyboardContainer = document.createElement('div');
+    this.keyboardContainer.classList.add('keyboard-container');
+    this.keyboardContainer.appendChild(this.actionsContainer);
+  }
+  /**
+   * Initialize the actions container inside the virtual keyboard
+   * @memberof VirtualKeyboard
+   */
+  initKeyboardActionsContainer() {
+    this.actionsContainer = document.createElement('div');
+    this.actionsContainer.classList.add('actions-container');
+    this.actionsContainer.innerHTML = '&lt;span class="config-button"&gt;' +
+    '&lt;i class="fa fa-cog" aria-hidden="true"&gt;&lt;/i&gt;' +
+    '&lt;/span&gt;' +
+    '&lt;span class="close-button"&gt;' +
+    '&lt;i class="fa fa-times" aria-hidden="true"&gt;&lt;/i&gt;' +
+    '&lt;/span&gt;';
+  }
+&nbsp;
+  /**
+   * Init all containers of the virtual keyboard
+   * @memberof VirtualKeyboard
+   */
+  initAllContainers() {
+    this.initKeyboardActionsContainer();
+    this.initKeyboardContainer();
+  }
+&nbsp;
+  /**
+   * Construct the virtual keyboard
+   * @param {any} keysMapping
+   * @param {any} actionsContainer
+   * @param {any} keyboardContainer
+   * @memberof VirtualKeyboard
+   */
+  constructKeyboard(keysMapping, actionsContainer, keyboardContainer) {
+    for (let i = 0; i &lt; this.rows.length; i += 1) {
+      this.rows[i] = document.createElement('div');
+      this.rows[i].classList.add('row');
+    }
+    const closeButton = actionsContainer.querySelector('.close-button');
+    closeButton.addEventListener('click', () =&gt; {
+      this.closeKeyboard();
+    });
+    this.lowkeysRow0 = this.initKeys(0, FIRST_ROW_LENGHT, keysMapping);
+    this.lowkeysRow1 = this.initKeys(10, SECOND_ROW_LENGHT, keysMapping);
+    this.lowkeysRow2 = this.initKeys(20, THIRD_ROW_LENGH<span class="fstat-no" title="function not covered" >T, keysMapping);</span>
+    this.low<span class="cstat-no" title="statement not covered" >keysRow3 = this.initKeys(29, FOURTH_ROW_LENGHT, keysMapping);</span>
+    <span class="cstat-no" title="statement not covered" ></span>
+    this.upperkeysRow0 = this.initKeys(35, FIRST_ROW_LENGHT, keysMapping);
+    this.upperkeysRow1 = this.initKeys(45, SECOND_ROW_LENGHT, keysMapping);
+    this.upperkeysRow2 = this.initKeys(55, THIRD_ROW_LENGHT, keysMapping);
+    this.upperkeysRow3 = this.initKeys(64, FOURTH_ROW_LENGHT, keysMapping);
+    
+    this.numericKeysRow0 = this.initKeys(70, FIRST_ROW_LENGHT, keysMapping);
+    this.numericKeysRow1 = this.initKeys(80, SECOND_ROW_LENGHT, keysMapping);
+    this.numericKeysRow2 = this.initKeys(90, THIRD_ROW_LENGHT, keysMapping);
+    this.numericKeysRow3 = this.initKeys(99, FOURTH_ROW_LENGHT, keysMapping);
+    
+    this.extraKeysRow0 = this.initKeys(105, FIRST_ROW_LENGHT, keysMapping);
+    this.extraKeysRow1 = this.initKeys(115, SECOND_ROW_LENGHT, keysMapping);
+    this.extraKeysRow2 = this.initKeys(125, THIRD_ROW_LENGHT, keysMapping);
+    
+    this.keys = this.lowkeysRow0.concat(
+      this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3,
+      this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3,
+      this.numericKeysRow0, this.numericKeysRow1, this.numericKeysRow2,
+      this.extraKeysRow0, this.extraKeysRow1, this.extraKeysRow2,
+    );
+    
+    this.setKeyboardRows(Array.of(
+      this.lowkeysRow0,
+      this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3,
+    ));
+    
+    keyboardContainer.append(actionsContainer, ...this.rows);
+    document.body.appendChild(keyboardContainer);
+  }
+  /**
+   * Setup the visible keys for the user
+   * @param {any} keysRow
+   * @memberof VirtualKeyboard
+   */
+  setKeyboardRows(keysRow) {
+    for (let i = 0; i &lt; keysRow.length; i += 1) {
+      while (this.rows[i].firstChild) {
+        this.rows[i].removeChild(this.rows[i].firstChild);
+      }
+      this.rows[i].append(...keysRow[i]);
+    }
+  }
+  /**
+   * Set the position of the virtual keyboard
+   * under the input HTML element with center alignment
+   * @memberof VirtualKeyboard
+   */
+  setKeyboardPosition(currentInputElement) {
+    const inputCoord = currentInputElement.getBoundingClientRect();
+    const virtualKeyboardWidth = this.keyboardContainer.offsetWidth;
+    let left = ((currentInputElement.offsetWidth / 2) - (virtualKeyboardWidth / 2)) +
+    inputCoord.left + document.documentElement.scrollLeft;
+    const top = inputCoord.top +
+      currentInputElement.offsetHeight + 15 + document.documentElement.scrollTop;
+&nbsp;
+    if (left &lt; 20) {
+      left = 20;
+    }
+    this.keyboardContainer.style.left = `${left}px`;
+    this.keyboardContainer.style.top = `${top}px`;
+  }
+  /**
+   * Initialize the virtual keyboard
+   * @memberof VirtualKeyboard
+   */<span class="fstat-no" title="function not covered" ></span>
+  launch<span class="cstat-no" title="statement not covered" >VirtualKeyboard() {</span>
+    const hookLaunchers = document.querySelectorAll('.virtual-keyboard-hook');
+    if (hookLaunchers.length &gt; 0) {
+      [...hookLaunchers].forEach((hookLauncher) =&gt; {
+        hookLauncher.addEventListener('click', this.handleClickOnVirtualKeyboardHook.bind(this, hookLauncher));
+      });
+    }
+  }
+  /**
+   * Handle the click event on the virtual keyboard hook
+   * @param {any} hookLauncher
+   * @memberof VirtualKeyboard
+   */
+  handleClickOnVirtualKeyboardHook(hookLauncher) {
+    const targetedInput = document.getElementById(hookLauncher.dataset.targetId);
+    const mapping = hookLauncher.dataset.keyboardMapping;
+    if (targetedInput &amp;&amp; mapping) {
+      this.currentInputElement = targetedInput;
+      if (!this.targetedInputsElements.has(targetedInput)) {
+        if (this.keyboardContainer) {
+          this.keyboardContainer.parentNode.removeChild(this.keyboardContainer);
+        }
+        this.initAllContainers();
+        if (mapping === 'qwerty') {
+          this.constructKeyboard(qwertyMapping, this.actionsContainer, this.keyboardContainer);
+        } else {
+          this.constructKeyboard(azertyMapping, this.actionsContainer, this.keyboardContainer);
+        }
+        targetedInput.addEventListener('click', () =&gt; {
+          this.inputCaretPosition = this.currentInputElement.selectionStart;
+        });
+&nbsp;
+        targetedInput.addEventListener('keypress', () =&gt; {
+          this.inputCaretPosition += 1;
+        });
+&nbsp;
+        this.inputCaretPosition = targetedInput.value.length;
+        this.targetedInputsElements.add(targetedInput);
+      }
+      this.currentInputElement = targetedInput;
+      this.setKeyboardPosition(this.currentInputElement);
+      this<span class="cstat-no" title="statement not covered" >.isvisible = true;</span>
+      this.keyboardContainer.classList.add('visible');
+      this.currentInputElement.focus();
+    }
+  }
+  /**
+   * Close the virtual keyboard
+   * @memberof VirtualKeyboard
+   */
+  closeKeyboard() {
+    this.isvisible = false;
+    this.keyboardContainer.classList.remove('visible');
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Nov 25 2017 23:54:41 GMT+0100 (Paris, Madrid)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

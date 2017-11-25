@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Sat Nov 18 2017 14:45:54 GMT+0100 (CET)
-process.env.CHROME_BIN = require('puppeteer').executablePath();
-module.exports = function(config) {
+var istanbul = require('browserify-istanbul');
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -15,40 +15,48 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'dist/*.js',
+      'src/*.js',
       'test/*.spec.js'
     ],
 
     browserify: {
       debug: true,
-      "transform": [
-        [
-          "babelify",
-          {
-            presets: ["env"]
-          }
-        ]
-      ]
+      bundleDelay: 1000,
+      transform: [
+        ['babelify', {
+          ignore: /node_modules/
+        }], istanbul({
+          ignore: ['test/**', '**/node_modules/**']
+        })
+      ],
+      extensions: ['.js']
     },
-
     // list of files to exclude
-    exclude: [
-    ],
-
+    exclude: [],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/*.js': [ 'browserify' ],
-      'test/*.spec.js': [ 'browserify' ]
+      'src/*.js': ['browserify'],
+      'test/*.spec.js': ['browserify']
     },
-
-
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
-
+    reporters: ['jasmine-diff', 'progress', 'coverage'],
+    coverageReporter: {
+      reporters: [{
+        type: 'text'
+      }, {
+        type: 'html',
+        dir: 'coverage',
+        subdir: 'html'
+      }, {
+        type: 'lcovonly',
+        dir: 'coverage',
+        subdir: 'lcov'
+      }]
+    },
 
     // web server port
     port: 9876,
