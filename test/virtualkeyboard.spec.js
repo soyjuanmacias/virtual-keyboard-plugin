@@ -50,6 +50,18 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     const elem = document.createElement('textarea');
     spyOn(elem, 'getBoundingClientRect').and.returnValue({
+      left: 600,
+      top: 50,
+    });
+    virtualkeyboardInstance.setKeyboardPosition(elem);
+    expect(virtualkeyboardInstance.keyboardContainer.style.left).toBe('215.5px');
+    expect(virtualkeyboardInstance.keyboardContainer.style.top).toBe('65px');
+  });
+
+  it('should set the correct position of the virtual keyboard when the position of the targeted input is close to the browser border', () => {
+    virtualkeyboardInstance.launchVirtualKeyboard();
+    const elem = document.createElement('textarea');
+    spyOn(elem, 'getBoundingClientRect').and.returnValue({
       left: 180,
       top: 50,
     });
@@ -60,7 +72,8 @@ describe('virtualkeyboard', () => {
 
   it('should close the virtual keyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
-    virtualkeyboardInstance.closeKeyboard();
+    const closeButton = virtualkeyboardInstance.actionsContainer.querySelector('.close-button');
+    closeButton.click();
 
     expect(virtualkeyboardInstance.isvisible).toBeFalsy();
     expect(virtualkeyboardInstance.keyboardContainer.classList.contains('visible')).toBeFalsy();
@@ -90,7 +103,14 @@ describe('virtualkeyboard', () => {
     expect(virtualkeyboardInstance.currentInputElement.value).toBe('est1');
   });
 
-  it('should increment the caretPostion on the currentInputElement when typing', () => {
+  it('should set the correct caretPosition to the clicked position when the input is clicked', () => {
+    virtualkeyboardInstance.launchVirtualKeyboard();
+    virtualkeyboardInstance.currentInputElement.value = 'test';
+    virtualkeyboardInstance.currentInputElement.click();
+    expect(virtualkeyboardInstance.currentInputElement.selectionStart).toBe(4);
+  });
+
+  it('should increment the caretPostion on the currentInputElement when typing with virtual keyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     spyOn(virtualkeyboardInstance.currentInputElement, 'focus');
     spyOn(virtualkeyboardInstance.currentInputElement, 'setSelectionRange');
@@ -106,6 +126,21 @@ describe('virtualkeyboard', () => {
     expect(virtualkeyboardInstance.currentInputElement.setSelectionRange).toHaveBeenCalledWith(6, 6);
     expect(virtualkeyboardInstance.currentInputElement.setSelectionRange).toHaveBeenCalledWith(7, 7);
   });
+
+  it('should increment the caretPostion on the currentInputElement when typing with virtual keyboard', () => {
+    virtualkeyboardInstance.launchVirtualKeyboard();
+    virtualkeyboardInstance.currentInputElement.value = 'test';
+    virtualkeyboardInstance.currentInputElement.click();
+    const event = new KeyboardEvent('keypress', {
+      cancelable: true,
+      key: 'a',
+    });
+    virtualkeyboardInstance.currentInputElement.dispatchEvent(event);
+    virtualkeyboardInstance.currentInputElement.dispatchEvent(event);
+    virtualkeyboardInstance.currentInputElement.dispatchEvent(event);
+    expect(virtualkeyboardInstance.inputCaretPosition).toBe(7);
+  });
+
 
   it('should decrement the caretPostion on the currentInputElement when backspacing', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
@@ -181,21 +216,42 @@ describe('virtualkeyboard', () => {
   });
 
 
-  it('should have created the HTML of the virtual keyboard', () => {
+  it('should have created the HTML of the azerty virtual keyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(lowerCaseKeysHTML);
   });
 
-  it('should have not created the HTML of the virtual keyboard when hook is not present', () => {
-    // spyOn(document, 'querySelectorAll').and.callFake((args) => {
-    //   switch (args) {
-    //     case '.virtual-keyboard-hook':
-    //       return null;
-    //     default:
-    //   }
-    // });
+  it('should have created the HTML of the qwerty virtual keyboard', () => {
+    hookLauncher.dataset.keyboardMapping = 'qwerty';
     virtualkeyboardInstance.launchVirtualKeyboard();
-    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(lowerCaseKeysHTML);
+    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(qwertyKeysHTML);
+  });
+
+  it('should remove the virtualkeyboard of the parent Node when another the targeted input element isnt the same ', () => {
+    virtualkeyboardInstance.keyboardContainer = document.createElement('div');
+    const parentElement = document.createElement('div');
+    parentElement.appendChild(virtualkeyboardInstance.keyboardContainer);
+    spyOn(parentElement, 'removeChild').and.callThrough();
+    virtualkeyboardInstance.handleClickOnVirtualKeyboardHook(hookLauncher);
+    expect(parentElement.removeChild).toHaveBeenCalled();
+  });
+
+  it('should have not created the HTML of the virtual keyboard when hook is not present', () => {
+    document.querySelectorAll.and.callFake((args) => {
+      switch (args) {
+        case '.virtual-keyboard-hook':
+          return [];
+        default:
+      }
+    });
+    virtualkeyboardInstance.launchVirtualKeyboard();
+    expect(virtualkeyboardInstance.keyboardContainer).toBe(null);
+  });
+
+  it('should have not created the HTML of the virtual keyboard when the hook not referencing a real input', () => {
+    hookLauncher.dataset.targetId = 'fakeid';
+    virtualkeyboardInstance.handleClickOnVirtualKeyboardHook(hookLauncher);
+    expect(virtualkeyboardInstance.keyboardContainer).toBe(null);
   });
 });
 
@@ -420,6 +476,64 @@ const numericsKeysHTML = '<div class="keyboard-container visible" style="left: 2
   '</div>' +
   '<div class="row">' +
   '<div class="key" data-action="lowercase">ABC</div>' +
+  '<div class="key" data-ascii="44">,</div>' +
+  '<div class="key" data-action="emotes"></div>' +
+  '<div class="key space-key" data-ascii="32">Space</div>' +
+  '<div class="key" data-ascii="46">.</div>' +
+  '<div class="key enter-key" data-action="enter">Enter</div>' +
+  '</div>' +
+  '</div>';
+
+const qwertyKeysHTML = '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
+  '<div class="actions-container">' +
+  '<span class="config-button">' +
+  '<i class="fa fa-cog" aria-hidden="true"></i>' +
+  '</span>' +
+  '<span class="close-button">' +
+  '<i class="fa fa-times" aria-hidden="true"></i>' +
+  '</span>' +
+  '</div>' +
+  '<div class="row">' +
+  '<div class="key" data-ascii="113">q</div>' +
+  '<div class="key" data-ascii="119">w</div>' +
+  '<div class="key" data-ascii="101">e</div>' +
+  '<div class="key" data-ascii="114">r</div>' +
+  '<div class="key" data-ascii="116">t</div>' +
+  '<div class="key" data-ascii="121">y</div>' +
+  '<div class="key" data-ascii="117">u</div>' +
+  '<div class="key" data-ascii="105">i</div>' +
+  '<div class="key" data-ascii="111">o</div>' +
+  '<div class="key" data-ascii="112">p</div>' +
+  '</div>' +
+  '<div class="row">' +
+  '<div class="key" data-ascii="97">a</div>' +
+  '<div class="key" data-ascii="115">s</div>' +
+  '<div class="key" data-ascii="100">d</div>' +
+  '<div class="key" data-ascii="102">f</div>' +
+  '<div class="key" data-ascii="103">g</div>' +
+  '<div class="key" data-ascii="104">h</div>' +
+  '<div class="key" data-ascii="106">j</div>' +
+  '<div class="key" data-ascii="107">k</div>' +
+  '<div class="key" data-ascii="108">l</div>' +
+  '<div class="key" data-ascii="39">\'</div>' +
+  '</div>' +
+  '<div class="row">' +
+  '<div class="key" data-action="uppercase">' +
+  '<i class="fa fa-arrow-up" aria-hidden="true"></i>' +
+  '</div>' +
+  '<div class="key" data-ascii="122">z</div>' +
+  '<div class="key" data-ascii="120">x</div>' +
+  '<div class="key" data-ascii="99">c</div>' +
+  '<div class="key" data-ascii="118">v</div>' +
+  '<div class="key" data-ascii="98">b</div>' +
+  '<div class="key" data-ascii="110">n</div>' +
+  '<div class="key" data-ascii="109">m</div>' +
+  '<div class="key backspace-key" data-action="backspace">' +
+  '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
+  '</div>' +
+  '</div>' +
+  '<div class="row">' +
+  '<div class="key" data-action="numerics">#123?</div>' +
   '<div class="key" data-ascii="44">,</div>' +
   '<div class="key" data-action="emotes"></div>' +
   '<div class="key space-key" data-ascii="32">Space</div>' +

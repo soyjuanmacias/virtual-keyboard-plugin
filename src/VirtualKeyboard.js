@@ -19,8 +19,7 @@ export default class VirtualKeyboard {
    * @param {any} options
    * @memberof VirtualKeyboard
    */
-  constructor(options) {
-    this.options = options || {};
+  constructor() {
     this.currentInputElement = null;
     this.targetedInputsElements = new Set();
     this.isvisible = false;
