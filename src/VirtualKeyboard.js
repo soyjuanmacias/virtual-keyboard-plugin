@@ -65,7 +65,7 @@ export default class VirtualKeyboard {
    */
   upperCaseKeyEvent(key) {
     key.addEventListener('click', () => {
-      this.setKeyboardRows(Array.of(this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3));
+      this.setVisibleKeyboardRows(Array.of(this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3));
     });
   }
   /**
@@ -76,7 +76,7 @@ export default class VirtualKeyboard {
    */
   lowerCaseKeyEvent(key) {
     key.addEventListener('click', () => {
-      this.setKeyboardRows(Array.of(this.lowkeysRow0, this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3));
+      this.setVisibleKeyboardRows(Array.of(this.lowkeysRow0, this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3));
     });
   }
   /**
@@ -87,7 +87,7 @@ export default class VirtualKeyboard {
    */
   numericsKeyEvent(key) {
     key.addEventListener('click', () => {
-      this.setKeyboardRows(Array.of(this.numericKeysRow0, this.numericKeysRow1, this.numericKeysRow2, this.numericKeysRow3));
+      this.setVisibleKeyboardRows(Array.of(this.numericKeysRow0, this.numericKeysRow1, this.numericKeysRow2, this.numericKeysRow3));
     });
   }
   /**
@@ -98,7 +98,7 @@ export default class VirtualKeyboard {
    */
   extraKeyEvent(key) {
     key.addEventListener('click', () => {
-      this.setKeyboardRows(Array.of(this.extraKeysRow0, this.extraKeysRow1, this.extraKeysRow2, this.numericKeysRow3));
+      this.setVisibleKeyboardRows(Array.of(this.extraKeysRow0, this.extraKeysRow1, this.extraKeysRow2, this.numericKeysRow3));
     });
   }
   /**
@@ -256,7 +256,7 @@ export default class VirtualKeyboard {
       this.extraKeysRow0, this.extraKeysRow1, this.extraKeysRow2,
     );
     
-    this.setKeyboardRows(Array.of(
+    this.setVisibleKeyboardRows(Array.of(
       this.lowkeysRow0,
       this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3,
     ));
@@ -269,7 +269,7 @@ export default class VirtualKeyboard {
    * @param {any} keysRow
    * @memberof VirtualKeyboard
    */
-  setKeyboardRows(keysRow) {
+  setVisibleKeyboardRows(keysRow) {
     for (let i = 0; i < keysRow.length; i += 1) {
       while (this.rows[i].firstChild) {
         this.rows[i].removeChild(this.rows[i].firstChild);

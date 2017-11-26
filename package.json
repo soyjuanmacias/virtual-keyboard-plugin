@@ -11,6 +11,9 @@
   "author": "stephen31",
   "license": "MIT",
   "private": false,
+  "quokka": {
+    "babel": true
+  },
   "dependencies": {
     "font-awesome": "^4.7.0"
   },
