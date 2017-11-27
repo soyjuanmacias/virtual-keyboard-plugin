@@ -1,5 +1,5 @@
 TN:
-SF:/home/stephen/work/web/web-virtual-keyboard/src/VirtualKeyboard.js
+SF:/home/stephen/work/web/web-virtual-keyboard/src/virtual-keyboard.js
 FN:0,(anonymous_1)
 FN:0,defineProperties
 FN:0,(anonymous_3)
@@ -76,7 +76,7 @@ FNDA:18,launchVirtualKeyboard
 FNDA:17,(anonymous_34)
 FNDA:19,handleClickOnVirtualKeyboardHook
 FNDA:2,(anonymous_36)
-FNDA:3,(anonymous_37)
+FNDA:1,(anonymous_37)
 FNDA:1,closeKeyboard
 DA:0,820
 DA:4,1
@@ -207,7 +207,7 @@ DA:328,16
 DA:330,17
 DA:331,2
 DA:334,17
-DA:335,3
+DA:335,1
 DA:338,17
 DA:339,17
 DA:341,18
@@ -275,7 +275,7 @@ BRF:52
 BRH:52
 end_of_record
 TN:
-SF:/home/stephen/work/web/web-virtual-keyboard/src/azertyMapping.js
+SF:/home/stephen/work/web/web-virtual-keyboard/src/azerty-mapping.js
 FNF:0
 FNH:0
 DA:0,1
@@ -286,7 +286,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/home/stephen/work/web/web-virtual-keyboard/src/qwertyMapping.js
+SF:/home/stephen/work/web/web-virtual-keyboard/src/qwerty-mapping.js
 FNF:0
 FNH:0
 DA:0,1

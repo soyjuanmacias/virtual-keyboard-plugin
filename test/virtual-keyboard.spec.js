@@ -1,6 +1,6 @@
 /* global describe beforeEach it expect jasmine spyOn it */
 /* eslint no-use-before-define: 0 */
-import VirtualKeyboard from '../src/VirtualKeyboard';
+import VirtualKeyboard from '../src/virtual-keyboard';
 
 describe('virtualkeyboard', () => {
   let virtualkeyboardInstance;
@@ -127,22 +127,25 @@ describe('virtualkeyboard', () => {
     expect(virtualkeyboardInstance.currentInputElement.setSelectionRange).toHaveBeenCalledWith(7, 7);
   });
 
-  it('should increment the caretPostion on the currentInputElement when typing with virtual keyboard', () => {
+  it('should change the caretPostion of the currentInputElement when typing with real keyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.currentInputElement.value = 'test';
     virtualkeyboardInstance.currentInputElement.click();
-    const event = new KeyboardEvent('keypress', {
+    const event = new KeyboardEvent('keydown', {
       cancelable: true,
       key: 'a',
     });
+    /*i'm faking the result of the input value after Keyboard Event there 
+    cause of KeyboardEvent which dont change the value of inputs
+    it is a security feature of browsers
+    */
+    virtualkeyboardInstance.currentInputElement.value = 'testa';
     virtualkeyboardInstance.currentInputElement.dispatchEvent(event);
-    virtualkeyboardInstance.currentInputElement.dispatchEvent(event);
-    virtualkeyboardInstance.currentInputElement.dispatchEvent(event);
-    expect(virtualkeyboardInstance.inputCaretPosition).toBe(7);
+    expect(virtualkeyboardInstance.inputCaretPosition).toBe(5);
   });
 
 
-  it('should decrement the caretPostion on the currentInputElement when backspacing', () => {
+  it('should decrement the caretPostion on the currentInputElement when backspacing with virtual keyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     spyOn(virtualkeyboardInstance.currentInputElement, 'focus');
     spyOn(virtualkeyboardInstance.currentInputElement, 'setSelectionRange');
@@ -153,12 +156,12 @@ describe('virtualkeyboard', () => {
       '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
       '</div>');
     backspaceKey.click();
-    expect(virtualkeyboardInstance.inputCaretPosition).toBe(2);
+    expect(virtualkeyboardInstance.inputCaretPosition).toEqual(2);
     expect(virtualkeyboardInstance.currentInputElement.focus).toHaveBeenCalled();
     expect(virtualkeyboardInstance.currentInputElement.setSelectionRange).toHaveBeenCalledWith(2, 2);
   });
 
-  it('should change the value of the currentInputElement when typing', () => {
+  it('should change the value of the currentInputElement and increment the caretPosition when typing with the virtual keyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.currentInputElement.value = 'Bonjour';
     virtualkeyboardInstance.inputCaretPosition = 7;
@@ -172,6 +175,7 @@ describe('virtualkeyboard', () => {
     key3.click();
     key4.click();
     expect(virtualkeyboardInstance.currentInputElement.value).toBe('Bonjourazer');
+    expect(virtualkeyboardInstance.inputCaretPosition).toEqual(11);
   });
 
   it('should set the Uppercase keys layout visible', () => {

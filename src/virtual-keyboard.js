@@ -1,8 +1,8 @@
 /*
     Virtual Keyboard for web app
 */
-import azertyMapping from './azertyMapping';
-import qwertyMapping from './qwertyMapping';
+import azertyMapping from './azerty-mapping';
+import qwertyMapping from './qwerty-mapping';
 
 const FIRST_ROW_LENGHT = 10;
 const SECOND_ROW_LENGHT = 10;
@@ -279,7 +279,7 @@ export default class VirtualKeyboard {
   /**
    * Set the position of the virtual keyboard
    * under the input HTML element with center alignment
-   * @memberof VirtualKeyboard
+   * @memberof VirtualKeyboard  
    */
   setKeyboardPosition(currentInputElement) {
     const inputCoord = currentInputElement.getBoundingClientRect();
@@ -331,8 +331,8 @@ export default class VirtualKeyboard {
           this.inputCaretPosition = this.currentInputElement.selectionStart;
         });
 
-        targetedInput.addEventListener('keypress', () => {
-          this.inputCaretPosition += 1;
+        targetedInput.addEventListener('keydown', () => {
+          this.inputCaretPosition = this.currentInputElement.selectionStart;
         });
 
         this.inputCaretPosition = targetedInput.value.length;

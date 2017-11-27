@@ -4,37 +4,38 @@ const path = require('path');
 const dev = process.env.NODE_ENV === 'dev';
 
 const config = {
-  entry: './src/index.js',
+  entry: {
+    'dist/virtual-keyboard': path.join(__dirname, '/src/virtual-keyboard.js'),
+    'public/script': path.join(__dirname, '/public/script-es-next.js'),
+  },
   watch: dev,
   output: {
-    path: path.resolve('./dist'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname),
+    filename: '[name].js',
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
+  },
+  module: {
+    rules: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+      options: {
+        presets: [
+          'env',
+        ],
+      },
+    }],
   },
   devServer: {
     contentBase: '.',
     hot: true,
   },
-  devtool: dev ? 'cheap-module-eval-source-map' : false,
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
-    ],
-  },
   plugins: [],
 };
 
-// if (!dev) {
-//   config.plugins.push(new UglifyJsPlugin());
-// }
+if (!dev) {
+  config.plugins.push(new UglifyJsPlugin());
+}
 
 module.exports = config;
-
