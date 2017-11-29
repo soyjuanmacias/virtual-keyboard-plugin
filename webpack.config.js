@@ -1,19 +1,17 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 const dev = process.env.NODE_ENV === 'dev';
 
 const config = {
   entry: {
-    'dist/virtual-keyboard': path.join(__dirname, '/src/virtual-keyboard.js'),
-    'public/script': path.join(__dirname, '/public/script-es-next.js'),
+    'dist/virtual-keyboard': path.join(__dirname, '/src/index.js'),
   },
   watch: dev,
   output: {
     path: path.resolve(__dirname),
     filename: '[name].js',
-    libraryTarget: 'umd',
-    umdNamedDefine: true,
   },
   module: {
     rules: [{
@@ -34,8 +32,20 @@ const config = {
   plugins: [],
 };
 
+
+const copyCssFiles = function copyCssFiles() {
+  return new CopyWebpackPlugin([{
+    from: path.resolve(__dirname, 'public/styles.css'),
+    to: path.resolve(__dirname, 'dist/virtual-keyboard.css'),
+  }]);
+};
+
+const uglifyJsPlugin = function uglifyJsPlugin() {
+  return new UglifyJsPlugin();
+};
+
 if (!dev) {
-  config.plugins.push(new UglifyJsPlugin());
+  config.plugins.push(uglifyJsPlugin(), copyCssFiles());
 }
 
 module.exports = config;

@@ -29,6 +29,7 @@
     "browserify": "^14.5.0",
     "browserify-babel-istanbul": "^0.4.0",
     "browserify-istanbul": "^3.0.1",
+    "copy-webpack-plugin": "^4.2.3",
     "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
@@ -55,8 +56,6 @@
     "puppeteer": "^0.13.0",
     "requirejs": "^2.3.5",
     "uglifyjs-webpack-plugin": "^1.0.1",
-    "watchify": "^3.9.0",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4"
+    "webpack": "^3.8.1"
   }
 }

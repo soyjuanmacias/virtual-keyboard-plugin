@@ -1,4 +1,4 @@
 
-import VirtualKeyboard from '../dist/virtual-keyboard';
+import VirtualKeyboard from '../src/virtual-keyboard';
 
 const virtualkeyboardintance = new VirtualKeyboard().launchVirtualKeyboard();
