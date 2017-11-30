@@ -1,70 +1,22 @@
 /*
-
     Virtual Keyboard CSS
     @Author Stephen31
-
 */
-
-
-/* The animation code */
-
-@keyframes show-keyboard {
-    0% {
-        transform: scale(.7);
-        opacity: 0;
-    }
-    45% {
-        transform: scale(1.05);
-        opacity: 1;
-    }
-    80% {
-        transform: scale(.95);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-@keyframes hide-keyboard {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(.5);
-        opacity: 0;
-    }
-}
 
 .keyboard-container {
     position: absolute;
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
     font-size: 14px;
-    width: 430px;
-    height: 220px;
+    width: 485px;
+    height: auto;
     justify-content: space-around;
     padding: 8px;
     background-color: #EEE;
     box-shadow: 0px 1px 0px 1px #DDD;
-    /* animation-name: keyboardAnimation;
-    animation-duration: 4s; */
-    /* transition: all 0.2s ease; */
     visibility: hidden;
-    /* display: none; */
-}
-
-.showKeyboard {
-    animation-name: show-keyboard;
-    animation-duration: 1s;
-}
-
-.hideKeyboard {
-    animation-name: hide-keyboard;
-    animation-duration: 1s;
 }
 
 .keyboard-container.visible {
-    /* display: block; */
     visibility: visible;
 }
 
@@ -85,13 +37,13 @@
     transform: scale(1.5);
 }
 
-.keyboard-container .row {
+.keyboard-container .row-virtual-keyboard {
     display: flex;
     width: 100%;
     height: 50px;
 }
 
-.keyboard-container .row .key {
+.keyboard-container .row-virtual-keyboard .key {
     display: flex;
     border-radius: 4px;
     flex-direction: row;
@@ -104,35 +56,26 @@
     border-radius: 4px;
     background: #FFF;
     box-shadow: 0px 2px 0px 1px #AAA;
-    
     cursor: pointer;
-    /* transition: all 0.2s ease; */
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
 
-.keyboard-container .row .key:hover {
-  /* box-shadow: 0px 2px 0px 2px #DDD; */
-  
-    /* transform: scale(1.1); */
-}
-
-.keyboard-container .row .key:active {
+.keyboard-container .row-virtual-keyboard .key:active {
     box-shadow: 0px 0px 1px 0px rgb(138, 138, 138);
     transform: translateY(2px);
-    /* background-color: rgb(192, 192, 192); */
 }
 
-.keyboard-container .row .key.space-key {
+.keyboard-container .row-virtual-keyboard .key.space-key {
     flex-grow: 4;
 }
 
-.keyboard-container .row .key.enter-key {
+.keyboard-container .row-virtual-keyboard .key.enter-key {
     flex-grow: 2;
 }
 
-.keyboard-container .row .key.backspace-key {
+.keyboard-container .row-virtual-keyboard .key.backspace-key {
     flex-grow: 2;
 }

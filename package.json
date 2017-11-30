@@ -2,16 +2,24 @@
   "name": "virtual-keyboard",
   "version": "1.0.0",
   "scripts": {
-    "dev": "NODE_ENV=dev webpack --watch",
+    "dev": "set NODE_ENV=dev && webpack --watch",
     "prod": "webpack",
     "webpack": "webpack -d --watch",
     "test": "karma start"
   },
   "description": "Simple Virtual keyboard plugin for web applications , based on HTML, javascript and CSS",
-  "main": "index.js",
+  "keywords": ["keyboard", "virtual-keyboard", "input", "text area", "javascript"],
+  "main": "dist/virtual-keyboard.js",
   "author": "stephen31",
   "license": "MIT",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephen31/web-virtual-keyboard"
+  },
+  "bugs": {
+    "url": "https://github.com/stephen31/web-virtual-keyboard/issues"
+  },
   "quokka": {
     "babel": true
   },
@@ -19,7 +27,6 @@
     "font-awesome": "^4.7.0"
   },
   "devDependencies": {
-    "@shopify/draggable": "^1.0.0-beta.3",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-istanbul": "^4.1.5",
@@ -56,6 +63,7 @@
     "puppeteer": "^0.13.0",
     "requirejs": "^2.3.5",
     "uglifyjs-webpack-plugin": "^1.0.1",
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "watchify": "^3.9.0"
   }
 }

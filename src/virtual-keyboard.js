@@ -223,7 +223,7 @@ export default class VirtualKeyboard {
   constructKeyboard(keysMapping, actionsContainer, keyboardContainer) {
     for (let i = 0; i < this.rows.length; i += 1) {
       this.rows[i] = document.createElement('div');
-      this.rows[i].classList.add('row');
+      this.rows[i].classList.add('row-virtual-keyboard');
     }
     const closeButton = actionsContainer.querySelector('.close-button');
     closeButton.addEventListener('click', () => {
@@ -332,7 +332,7 @@ export default class VirtualKeyboard {
         });
 
         targetedInput.addEventListener('keydown', () => {
-          this.inputCaretPosition = this.currentInputElement.selectionStart;
+          this.inputCaretPosition = this.currentInputElement.selectionStart + 1;
         });
 
         this.inputCaretPosition = targetedInput.value.length;

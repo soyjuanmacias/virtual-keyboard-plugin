@@ -6,11 +6,9 @@ describe('virtualkeyboard', () => {
   let virtualkeyboardInstance;
   let hookLauncher;
   let inputElement;
-  // let document = null;
+  
   beforeEach(() => {
     virtualkeyboardInstance = new VirtualKeyboard();
-
-    // document.querySelectorAll = jasmine.createSpy();
     hookLauncher = document.createElement('div');
     hookLauncher.classList.add('virtual-keyboard-hook');
     hookLauncher.dataset.targetId = 'id1';
@@ -54,7 +52,7 @@ describe('virtualkeyboard', () => {
       top: 50,
     });
     virtualkeyboardInstance.setKeyboardPosition(elem);
-    expect(virtualkeyboardInstance.keyboardContainer.style.left).toBe('215.5px');
+    expect(virtualkeyboardInstance.keyboardContainer.style.left).toBe('223px');
     expect(virtualkeyboardInstance.keyboardContainer.style.top).toBe('65px');
   });
 
@@ -83,9 +81,7 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.currentInputElement.value = 'test1';
     virtualkeyboardInstance.inputCaretPosition = 5;
-    const enterKey = virtualkeyboardInstance.keys.find((element) => {
-      return element.outerHTML === '<div class="key enter-key" data-action="enter">Enter</div>';
-    });
+    const enterKey = virtualkeyboardInstance.keys.find((element) => element.outerHTML === '<div class="key enter-key" data-action="enter">Enter</div>');
 
     enterKey.click();
     expect(virtualkeyboardInstance.currentInputElement.value).toBe('test1\n');
@@ -135,11 +131,6 @@ describe('virtualkeyboard', () => {
       cancelable: true,
       key: 'a',
     });
-    /*i'm faking the result of the input value after Keyboard Event there 
-    cause of KeyboardEvent which dont change the value of inputs
-    it is a security feature of browsers
-    */
-    virtualkeyboardInstance.currentInputElement.value = 'testa';
     virtualkeyboardInstance.currentInputElement.dispatchEvent(event);
     expect(virtualkeyboardInstance.inputCaretPosition).toBe(5);
   });
@@ -205,7 +196,7 @@ describe('virtualkeyboard', () => {
       element.outerHTML === '<div class="key" data-action="extrakeys">=\\&lt;</div>');
 
     extraKeys.click();
-    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(extraKeysHTML)
+    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(extraKeysHTML);
   });
 
   it('should set the lowercase keys layout visible', () => {
@@ -269,7 +260,7 @@ const lowerCaseKeysHTML = '<div class="keyboard-container visible" style="left: 
   '<i class="fa fa-times" aria-hidden="true"></i>' +
   '</span>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-ascii="97">a</div>' +
   '<div class="key" data-ascii="122">z</div>' +
   '<div class="key" data-ascii="101">e</div>' +
@@ -281,7 +272,7 @@ const lowerCaseKeysHTML = '<div class="keyboard-container visible" style="left: 
   '<div class="key" data-ascii="111">o</div>' +
   '<div class="key" data-ascii="112">p</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-ascii="113">q</div>' +
   '<div class="key" data-ascii="115">s</div>' +
   '<div class="key" data-ascii="100">d</div>' +
@@ -293,7 +284,7 @@ const lowerCaseKeysHTML = '<div class="keyboard-container visible" style="left: 
   '<div class="key" data-ascii="108">l</div>' +
   '<div class="key" data-ascii="109">m</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-action="uppercase">' +
   '<i class="fa fa-arrow-up" aria-hidden="true"></i>' +
   '</div>' +
@@ -308,7 +299,7 @@ const lowerCaseKeysHTML = '<div class="keyboard-container visible" style="left: 
   '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
   '</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-action="numerics">#123?</div>' +
   '<div class="key" data-ascii="44">,</div>' +
   '<div class="key" data-action="emotes"></div>' +
@@ -327,7 +318,7 @@ const upperCaseKeysHTML = '<div class="keyboard-container visible" style="left: 
   '<i class="fa fa-times" aria-hidden="true"></i>' +
   '</span>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-ascii="65">A</div>' +
   '<div class="key" data-ascii="90">Z</div>' +
   '<div class="key" data-ascii="69">E</div>' +
@@ -339,7 +330,7 @@ const upperCaseKeysHTML = '<div class="keyboard-container visible" style="left: 
   '<div class="key" data-ascii="79">O</div>' +
   '<div class="key" data-ascii="80">P</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-ascii="81">Q</div>' +
   '<div class="key" data-ascii="83">S</div>' +
   '<div class="key" data-ascii="68">D</div>' +
@@ -351,7 +342,7 @@ const upperCaseKeysHTML = '<div class="keyboard-container visible" style="left: 
   '<div class="key" data-ascii="76">L</div>' +
   '<div class="key" data-ascii="77">M</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-action="lowercase">' +
   '<i class="fa fa-arrow-up" aria-hidden="true"></i>' +
   '</div>' +
@@ -366,7 +357,7 @@ const upperCaseKeysHTML = '<div class="keyboard-container visible" style="left: 
   '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
   '</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-action="numerics">#123?</div>' +
   '<div class="key" data-ascii="44">,</div>' +
   '<div class="key" data-action="emotes"></div>' +
@@ -385,7 +376,7 @@ const extraKeysHTML = '<div class="keyboard-container visible" style="left: 20px
   '<i class="fa fa-times" aria-hidden="true"></i>' +
   '</span>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-ascii="126">~</div>' +
   '<div class="key" data-ascii="94">`</div>' +
   '<div class="key" data-ascii="124">|</div>' +
@@ -397,7 +388,7 @@ const extraKeysHTML = '<div class="keyboard-container visible" style="left: 20px
   '<div class="key" data-ascii="37">%</div>' +
   '<div class="key" data-ascii="92">\\</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-ascii="91">[</div>' +
   '<div class="key" data-ascii="93">]</div>' +
   '<div class="key" data-ascii="8364">€</div>' +
@@ -409,7 +400,7 @@ const extraKeysHTML = '<div class="keyboard-container visible" style="left: 20px
   '<div class="key" data-ascii="41">)</div>' +
   '<div class="key" data-ascii="47">/</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-action="numerics">#123?</div>' +
   '<div class="key" data-ascii="42">*</div>' +
   '<div class="key" data-ascii="34">"</div>' +
@@ -422,7 +413,7 @@ const extraKeysHTML = '<div class="keyboard-container visible" style="left: 20px
   '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
   '</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-action="lowercase">ABC</div>' +
   '<div class="key" data-ascii="44">,</div>' +
   '<div class="key" data-action="emotes"></div>' +
@@ -441,7 +432,7 @@ const numericsKeysHTML = '<div class="keyboard-container visible" style="left: 2
   '<i class="fa fa-times" aria-hidden="true"></i>' +
   '</span>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-ascii="49">1</div>' +
   '<div class="key" data-ascii="50">2</div>' +
   '<div class="key" data-ascii="51">3</div>' +
@@ -453,7 +444,7 @@ const numericsKeysHTML = '<div class="keyboard-container visible" style="left: 2
   '<div class="key" data-ascii="57">9</div>' +
   '<div class="key" data-ascii="48">0</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-ascii="64">@</div>' +
   '<div class="key" data-ascii="35">#</div>' +
   '<div class="key" data-ascii="8364">€</div>' +
@@ -465,7 +456,7 @@ const numericsKeysHTML = '<div class="keyboard-container visible" style="left: 2
   '<div class="key" data-ascii="41">)</div>' +
   '<div class="key" data-ascii="47">/</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-action="extrakeys">=\\&lt;</div>' +
   '<div class="key" data-ascii="42">*</div>' +
   '<div class="key" data-ascii="34">"</div>' +
@@ -478,7 +469,7 @@ const numericsKeysHTML = '<div class="keyboard-container visible" style="left: 2
   '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
   '</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-action="lowercase">ABC</div>' +
   '<div class="key" data-ascii="44">,</div>' +
   '<div class="key" data-action="emotes"></div>' +
@@ -497,7 +488,7 @@ const qwertyKeysHTML = '<div class="keyboard-container visible" style="left: 20p
   '<i class="fa fa-times" aria-hidden="true"></i>' +
   '</span>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-ascii="113">q</div>' +
   '<div class="key" data-ascii="119">w</div>' +
   '<div class="key" data-ascii="101">e</div>' +
@@ -509,7 +500,7 @@ const qwertyKeysHTML = '<div class="keyboard-container visible" style="left: 20p
   '<div class="key" data-ascii="111">o</div>' +
   '<div class="key" data-ascii="112">p</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-ascii="97">a</div>' +
   '<div class="key" data-ascii="115">s</div>' +
   '<div class="key" data-ascii="100">d</div>' +
@@ -521,7 +512,7 @@ const qwertyKeysHTML = '<div class="keyboard-container visible" style="left: 20p
   '<div class="key" data-ascii="108">l</div>' +
   '<div class="key" data-ascii="39">\'</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-action="uppercase">' +
   '<i class="fa fa-arrow-up" aria-hidden="true"></i>' +
   '</div>' +
@@ -536,7 +527,7 @@ const qwertyKeysHTML = '<div class="keyboard-container visible" style="left: 20p
   '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
   '</div>' +
   '</div>' +
-  '<div class="row">' +
+  '<div class="row-virtual-keyboard">' +
   '<div class="key" data-action="numerics">#123?</div>' +
   '<div class="key" data-ascii="44">,</div>' +
   '<div class="key" data-action="emotes"></div>' +
