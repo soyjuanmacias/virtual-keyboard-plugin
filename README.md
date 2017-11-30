@@ -4,7 +4,7 @@
 
 ### Preview 
 
-![alt text](https://github.com/stephen31/web-virtual-keyboard/tree/master/public/virtual-keyboard.gif "Virtual keyboard")
+![ScreenShot](https://github.com/stephen31/web-virtual-keyboard/tree/master/public/virtual-keyboard.gif "Virtual keyboard")
 
 ## Installation
 
