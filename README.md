@@ -4,7 +4,7 @@
 
 ### Preview 
 
-![ScreenShot](https://github.com/stephen31/web-virtual-keyboard/tree/master/public/virtual-keyboard.gif "Virtual keyboard")
+![Alt Text](https://media.giphy.com/media/3osBLcxrlQ9ZO3Mf6w/giphy.gif)
 
 ## Installation
 
@@ -25,14 +25,14 @@ $ yarn add virtual-keyboard --save
 * Add the javascript file of the virtual-keyboard plugin at the end of your index.html
 
 ```html
-	<link rel="stylesheet" href="../node_modules/web-virtual-keyboard/virtual-keyboard.css">
+	  <link rel="stylesheet" href="../node_modules/web-virtual-keyboard/virtual-keyboard.css">
     <link rel="stylesheet" href="../node_modules/web-virtual-keyboard/node_modules/font-awesome/css/font-awesome.min.css">
     <script src="../node_modules/web-virtual-keyboard/virtual-keyboard.js""></script>
 ```
 * add 'virtual-keyboard' as an attribute of your input/text-area
 * Create a new HTML element that will serve as a button to open the virtual keyboard and add to it two attributes :
    1/ 'data-targt-id': 'input_id'   => put the Id of the input that will be used by the virtual keyboard
-   2/ 'data-keyboard-mapping': 'azerty' or 'qwerty'  => put the azerty as value if you want azerty layout or qwerty if you want qwerty layout
+   2/ 'data-keyboard-mapping': 'azerty' or 'qwerty'  => put azerty as value if you want azerty layout or qwerty if you want qwerty layout
 
  ### Examples of use
 ```html
