@@ -3,6 +3,9 @@ language: node_js
 node_js:
   - "stable"
 
+before_install:
+ - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost
+
 script:
   - npm run test
   - npm run prod
