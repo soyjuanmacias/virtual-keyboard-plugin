@@ -283,11 +283,11 @@ export default class VirtualKeyboard {
    */
   setKeyboardPosition(currentInputElement) {
     const inputCoord = currentInputElement.getBoundingClientRect();
-    const virtualKeyboardWidth = this.keyboardContainer.offsetWidth;
+    const virtualKeyboardWidth = this.keyboardContainer.getBoundingClientRect().width;
     let left = ((currentInputElement.offsetWidth / 2) - (virtualKeyboardWidth / 2)) +
-    inputCoord.left + document.body.scrollLeft;
+    inputCoord.left + document.documentElement.scrollLeft;
     const top = inputCoord.top +
-      currentInputElement.offsetHeight + 15 + document.body.scrollTop;
+      currentInputElement.offsetHeight + 15 + document.documentElement.scrollTop;
 
     if (left < 20) {
       left = 20;

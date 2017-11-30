@@ -47,18 +47,24 @@ describe('virtualkeyboard', () => {
   it('should set the correct position of the virtual keyboard after create', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     const elem = document.createElement('textarea');
+    spyOn(virtualkeyboardInstance.keyboardContainer, 'getBoundingClientRect').and.returnValue({
+      width: 700,
+    });
     spyOn(elem, 'getBoundingClientRect').and.returnValue({
       left: 600,
       top: 50,
     });
     virtualkeyboardInstance.setKeyboardPosition(elem);
-    expect(virtualkeyboardInstance.keyboardContainer.style.left).toBe('223px');
+    expect(virtualkeyboardInstance.keyboardContainer.style.left).toBe('250px');
     expect(virtualkeyboardInstance.keyboardContainer.style.top).toBe('65px');
   });
 
   it('should set the correct position of the virtual keyboard when the position of the targeted input is close to the browser border', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     const elem = document.createElement('textarea');
+    spyOn(virtualkeyboardInstance.keyboardContainer, 'getBoundingClientRect').and.returnValue({
+      width: 700,
+    });
     spyOn(elem, 'getBoundingClientRect').and.returnValue({
       left: 180,
       top: 50,
