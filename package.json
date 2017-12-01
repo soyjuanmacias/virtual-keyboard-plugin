@@ -43,6 +43,7 @@
     "browserify": "^14.5.0",
     "browserify-babel-istanbul": "^0.4.0",
     "browserify-istanbul": "^3.0.1",
+    "codecov": "^3.0.0",
     "copy-webpack-plugin": "^4.2.3",
     "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",
