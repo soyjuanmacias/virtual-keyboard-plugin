@@ -1,5 +1,5 @@
 {
-  "name": "virtual-keyboard",
+  "name": "virtual-keyboard-plugin",
   "version": "1.0.0",
   "scripts": {
     "dev": "set NODE_ENV=development && webpack --watch",
@@ -11,6 +11,7 @@
   "keywords": [
     "keyboard",
     "virtual-keyboard",
+    "plugin",
     "input",
     "textarea",
     "javascript"
@@ -21,10 +22,10 @@
   "private": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stephen31/web-virtual-keyboard"
+    "url": "git+https://github.com/stephen31/virtual-keyboard-plugin"
   },
   "bugs": {
-    "url": "https://github.com/stephen31/web-virtual-keyboard/issues"
+    "url": "https://github.com/stephen31/virtual-keyboard-plugin/issues"
   },
   "quokka": {
     "babel": true
