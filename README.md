@@ -6,6 +6,10 @@
 
 ![Alt Text](https://media.giphy.com/media/3osBLcxrlQ9ZO3Mf6w/giphy.gif)
 
+### Demo Link
+
+[Demo here](https://stephen31.github.io/virtual-keyboard-plugin/public/)
+
 ## Installation
 
 #### npm
