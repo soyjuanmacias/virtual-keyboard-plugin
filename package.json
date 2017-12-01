@@ -4,15 +4,15 @@
   "scripts": {
     "dev": "set NODE_ENV=development && webpack --watch",
     "prod": "webpack",
-    "webpack": "webpack -d --watch",
-    "test": "karma start"
+    "test": "karma start",
+    "coveralls": "cat ./coverage/lcov/lcov.info | ./node_modules/.bin/coveralls"
   },
   "description": "Simple Virtual keyboard plugin for web applications , based on HTML, javascript and CSS",
   "keywords": [
     "keyboard",
     "virtual-keyboard",
     "input",
-    "text area",
+    "textarea",
     "javascript"
   ],
   "main": "dist/virtual-keyboard.js",
@@ -43,6 +43,7 @@
     "browserify-babel-istanbul": "^0.4.0",
     "browserify-istanbul": "^3.0.1",
     "copy-webpack-plugin": "^4.2.3",
+    "coveralls": "^3.0.0",
     "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
