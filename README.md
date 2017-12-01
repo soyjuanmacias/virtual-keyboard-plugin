@@ -1,6 +1,6 @@
 # Virtual Keyboard plugin
 
-[![Build Status](https://travis-ci.org/stephen31/virtual-keyboard-plugin.svg?branch=master)](https://travis-ci.org/stephen31/virtual-keyboard-plugin)[![Coverage Status](https://coveralls.io/repos/github/stephen31/virtual-keyboard-plugin/badge.svg?branch=master)](https://coveralls.io/github/stephen31/virtual-keyboard-plugin?branch=master)
+[![Build Status](https://travis-ci.org/stephen31/virtual-keyboard-plugin.svg?branch=master)](https://travis-ci.org/stephen31/virtual-keyboard-plugin) [![Coverage Status](https://coveralls.io/repos/github/stephen31/virtual-keyboard-plugin/badge.svg?branch=master)](https://coveralls.io/github/stephen31/virtual-keyboard-plugin?branch=master)
 
 > Sample virtual keyboard plugin for inputs and text areas
 
