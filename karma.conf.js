@@ -10,7 +10,6 @@ module.exports = function (config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: './',
 
-
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine', 'browserify'],
@@ -27,7 +26,9 @@ module.exports = function (config) {
           // instrument only testing sources with Istanbul
           {
             test: /\.js$/,
-            use: { loader: 'istanbul-instrumenter-loader' },
+            use: {
+              loader: 'istanbul-instrumenter-loader'
+            },
             include: path.resolve('src/components/')
           }
         ]
@@ -62,16 +63,22 @@ module.exports = function (config) {
     reporters: ['jasmine-diff', 'progress', 'coverage'],
     coverageReporter: {
       reporters: [{
-        type: 'text'
-      }, {
-        type: 'html',
-        dir: 'coverage',
-        subdir: 'html'
-      }, {
-        type: 'lcovonly',
-        dir: 'coverage',
-        subdir: 'lcov'
-      }]
+          type: 'text'
+        }, {
+          type: 'html',
+          dir: 'coverage',
+          subdir: 'html'
+        }, // generates ./coverage/lcov.info
+        {
+          type: 'lcovonly',
+          subdir: '.'
+        },
+        // generates ./coverage/coverage-final.json
+        {
+          type: 'json',
+          subdir: '.'
+        },
+      ]
     },
 
     // web server port

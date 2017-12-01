@@ -60,6 +60,7 @@ node_modules/
 
 # ignore coverage report
 /coverage
+codecov.yml
 
 # ignore OS generated files
 ehthumbs.db
