@@ -45,7 +45,9 @@ $ yarn add virtual-keyboard --save
 <input id="Id2" type="text" virtual-keyboard>
 <div class="virtual-keyboard-hook" data-target-id=Id2" data-keyboard-mapping="azerty"><i class="fa fa-keyboard-o" aria-hidden="true"></i></div>
 ````
+### Compatibility
 
+ Chrome & Firefox
 ### TODO
 
 * Support of characters with accents

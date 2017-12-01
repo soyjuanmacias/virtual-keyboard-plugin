@@ -1,5 +1,5 @@
 TN:
-SF:F:\STEPHEN\Documents\Work\JAVASCRIPT_LABO\web-virtual-keyboard\src\virtual-keyboard.js
+SF:F:\STEPHEN\Documents\Work\JAVASCRIPT_LABO\virtual-keyboard-plugin\src\virtual-keyboard.js
 FN:0,(anonymous_1)
 FN:0,defineProperties
 FN:0,(anonymous_3)
@@ -275,7 +275,7 @@ BRF:52
 BRH:52
 end_of_record
 TN:
-SF:F:\STEPHEN\Documents\Work\JAVASCRIPT_LABO\web-virtual-keyboard\src\azerty-mapping.js
+SF:F:\STEPHEN\Documents\Work\JAVASCRIPT_LABO\virtual-keyboard-plugin\src\azerty-mapping.js
 FNF:0
 FNH:0
 DA:0,1
@@ -286,7 +286,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:F:\STEPHEN\Documents\Work\JAVASCRIPT_LABO\web-virtual-keyboard\src\qwerty-mapping.js
+SF:F:\STEPHEN\Documents\Work\JAVASCRIPT_LABO\virtual-keyboard-plugin\src\qwerty-mapping.js
 FNF:0
 FNH:0
 DA:0,1
