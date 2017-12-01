@@ -15,12 +15,21 @@
 #### npm
 
 ```bash
-$ npm install virtual-keyboard --save
+$ npm install virtual-keyboard-plugin --save
 ```
 
 #### yarn
 ```bash
-$ yarn add virtual-keyboard --save
+$ yarn add virtual-keyboard-plugin --save
+```
+
+### unpkg CDN
+ You can also skip yarn/npm install by using repos on the cdn 
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/virtual-keyboard-plugin@1.0.0/dist/virtual-keyboard.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://unpkg.com/virtual-keyboard-plugin@1.0.0/dist/virtual-keyboard.min.js"></script>
 ```
 
 ## Configuration
@@ -29,9 +38,9 @@ $ yarn add virtual-keyboard --save
 * Add the javascript file of the virtual-keyboard plugin at the end of your index.html
 
 ```html
-<link rel="stylesheet" href="../node_modules/virtual-keyboard-plugin/virtual-keyboard.css">
-<link rel="stylesheet" href="../node_modules/virtual-keyboard-plugin/node_modules/font-awesome/css/font-awesome.min.css">
-<script src="../node_modules/virtual-keyboard-plugin/virtual-keyboard.js""></script>
+<link rel="stylesheet" href="../node_modules/virtual-keyboard-plugin/dist/virtual-keyboard.css">
+<link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
+<script src="../node_modules/virtual-keyboard-plugin/dist/virtual-keyboard.js"></script>
 ```
 * add 'virtual-keyboard' as an attribute of your input/text-area
 * Create a new HTML element that will serve as a button to open the virtual keyboard and add to it two attributes :

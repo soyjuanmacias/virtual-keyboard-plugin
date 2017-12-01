@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "set NODE_ENV=development && webpack --watch",
-    "prod": "webpack",
+    "build": "set NODE_ENV=production && webpack &",
     "test": "karma start",
     "report-coverage": "codecov"
   },
@@ -16,7 +16,14 @@
     "textarea",
     "javascript"
   ],
+  "engines": {
+    "node": ">=7.8.0"
+  },
   "main": "dist/virtual-keyboard.js",
+  "files": [
+    "dist"
+  ],
+  "unpkg": "dist/virtual-keyboard.min.js",
   "author": "stephen31",
   "license": "MIT",
   "private": false,
