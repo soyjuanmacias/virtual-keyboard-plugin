@@ -1,6 +1,4 @@
-# Virtual Keyboard plugin
-
-[![Build Status](https://travis-ci.org/stephen31/virtual-keyboard-plugin.svg?branch=master)](https://travis-ci.org/stephen31/virtual-keyboard-plugin) [![codecov](https://codecov.io/gh/stephen31/virtual-keyboard-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/stephen31/virtual-keyboard-plugin) [![Coverage Status]
+# Virtual Keyboard plugin [![Build Status](https://travis-ci.org/stephen31/virtual-keyboard-plugin.svg?branch=master)](https://travis-ci.org/stephen31/virtual-keyboard-plugin) [![codecov](https://codecov.io/gh/stephen31/virtual-keyboard-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/stephen31/virtual-keyboard-plugin)
 
 > Sample virtual keyboard plugin for inputs and text areas
 
