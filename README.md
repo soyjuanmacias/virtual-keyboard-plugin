@@ -65,3 +65,4 @@ $ yarn add virtual-keyboard-plugin --save
 * Add a new key for smileys before the space key
 * Configuration button (colors etc...)
 * Add posibility to choose keyboard position (default is bottom centered)
+* Support IE and Edge
