@@ -259,9 +259,6 @@ describe('virtualkeyboard', () => {
 
 const lowerCaseKeysHTML = '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
   '<div class="actions-container">' +
-  '<span class="config-button">' +
-  '<i class="fa fa-cog" aria-hidden="true"></i>' +
-  '</span>' +
   '<span class="close-button">' +
   '<i class="fa fa-times" aria-hidden="true"></i>' +
   '</span>' +
@@ -317,9 +314,6 @@ const lowerCaseKeysHTML = '<div class="keyboard-container visible" style="left: 
 
 const upperCaseKeysHTML = '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
   '<div class="actions-container">' +
-  '<span class="config-button">' +
-  '<i class="fa fa-cog" aria-hidden="true"></i>' +
-  '</span>' +
   '<span class="close-button">' +
   '<i class="fa fa-times" aria-hidden="true"></i>' +
   '</span>' +
@@ -375,9 +369,6 @@ const upperCaseKeysHTML = '<div class="keyboard-container visible" style="left: 
 
 const extraKeysHTML = '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
   '<div class="actions-container">' +
-  '<span class="config-button">' +
-  '<i class="fa fa-cog" aria-hidden="true"></i>' +
-  '</span>' +
   '<span class="close-button">' +
   '<i class="fa fa-times" aria-hidden="true"></i>' +
   '</span>' +
@@ -431,9 +422,6 @@ const extraKeysHTML = '<div class="keyboard-container visible" style="left: 20px
 
 const numericsKeysHTML = '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
   '<div class="actions-container">' +
-  '<span class="config-button">' +
-  '<i class="fa fa-cog" aria-hidden="true"></i>' +
-  '</span>' +
   '<span class="close-button">' +
   '<i class="fa fa-times" aria-hidden="true"></i>' +
   '</span>' +
@@ -487,9 +475,6 @@ const numericsKeysHTML = '<div class="keyboard-container visible" style="left: 2
 
 const qwertyKeysHTML = '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
   '<div class="actions-container">' +
-  '<span class="config-button">' +
-  '<i class="fa fa-cog" aria-hidden="true"></i>' +
-  '</span>' +
   '<span class="close-button">' +
   '<i class="fa fa-times" aria-hidden="true"></i>' +
   '</span>' +
