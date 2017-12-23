@@ -1,4 +1,5 @@
-# Virtual Keyboard plugin [![Build Status](https://travis-ci.org/stephen31/virtual-keyboard-plugin.svg?branch=master)](https://travis-ci.org/stephen31/virtual-keyboard-plugin) [![codecov](https://codecov.io/gh/stephen31/virtual-keyboard-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/stephen31/virtual-keyboard-plugin)
+# Virtual Keyboard plugin 
+[![Build Status](https://travis-ci.org/stephen31/virtual-keyboard-plugin.svg?branch=master)](https://travis-ci.org/stephen31/virtual-keyboard-plugin) [![codecov](https://codecov.io/gh/stephen31/virtual-keyboard-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/stephen31/virtual-keyboard-plugin) [![npm version](https://badge.fury.io/js/virtual-keyboard-plugin.svg)](https://badge.fury.io/js/virtual-keyboard-plugin)
 
 > A simple virtual keyboard plugin for inputs and text areas
 
@@ -27,9 +28,9 @@ $ yarn add virtual-keyboard-plugin --save
  You can also skip yarn/npm install by using repos on the cdn 
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/virtual-keyboard-plugin@1.0.0/dist/virtual-keyboard.css">
+<link rel="stylesheet" href="https://unpkg.com/virtual-keyboard-plugin@1.1.0/dist/virtual-keyboard.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://unpkg.com/virtual-keyboard-plugin@1.0.0/dist/virtual-keyboard.min.js"></script>
+<script src="https://unpkg.com/virtual-keyboard-plugin@1.1.0/dist/virtual-keyboard.min.js"></script>
 ```
 
 ## Configuration
@@ -58,11 +59,9 @@ $ yarn add virtual-keyboard-plugin --save
 ````
 ### Compatibility
 
- Chrome & Firefox
+ IE9+ , Chrome , Firefox, Opera
 ### TODO
 
 * Support of characters with accents
 * Add a new key for smileys before the space key
-* Configuration button (colors etc...)
 * Add posibility to choose keyboard position (default is bottom centered)
-* Support IE and Edge
