@@ -38,6 +38,7 @@
     "babel": true
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "font-awesome": "^4.7.0"
   },
   "devDependencies": {
