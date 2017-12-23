@@ -1,6 +1,7 @@
 /*
     Virtual Keyboard for web app
 */
+import 'babel-polyfill';
 import azertyMapping from './azerty-mapping';
 import qwertyMapping from './qwerty-mapping';
 
@@ -197,11 +198,11 @@ export default class VirtualKeyboard {
     this.actionsContainer = document.createElement('div');
     this.actionsContainer.classList.add('actions-container');
     this.actionsContainer.innerHTML = '<span class="config-button">' +
-    '<i class="fa fa-cog" aria-hidden="true"></i>' +
-    '</span>' +
-    '<span class="close-button">' +
-    '<i class="fa fa-times" aria-hidden="true"></i>' +
-    '</span>';
+      '<i class="fa fa-cog" aria-hidden="true"></i>' +
+      '</span>' +
+      '<span class="close-button">' +
+      '<i class="fa fa-times" aria-hidden="true"></i>' +
+      '</span>';
   }
 
   /**
@@ -233,34 +234,37 @@ export default class VirtualKeyboard {
     this.lowkeysRow1 = this.initKeys(10, SECOND_ROW_LENGHT, keysMapping);
     this.lowkeysRow2 = this.initKeys(20, THIRD_ROW_LENGHT, keysMapping);
     this.lowkeysRow3 = this.initKeys(29, FOURTH_ROW_LENGHT, keysMapping);
-    
+
     this.upperkeysRow0 = this.initKeys(35, FIRST_ROW_LENGHT, keysMapping);
     this.upperkeysRow1 = this.initKeys(45, SECOND_ROW_LENGHT, keysMapping);
     this.upperkeysRow2 = this.initKeys(55, THIRD_ROW_LENGHT, keysMapping);
     this.upperkeysRow3 = this.initKeys(64, FOURTH_ROW_LENGHT, keysMapping);
-    
+
     this.numericKeysRow0 = this.initKeys(70, FIRST_ROW_LENGHT, keysMapping);
     this.numericKeysRow1 = this.initKeys(80, SECOND_ROW_LENGHT, keysMapping);
     this.numericKeysRow2 = this.initKeys(90, THIRD_ROW_LENGHT, keysMapping);
     this.numericKeysRow3 = this.initKeys(99, FOURTH_ROW_LENGHT, keysMapping);
-    
+
     this.extraKeysRow0 = this.initKeys(105, FIRST_ROW_LENGHT, keysMapping);
     this.extraKeysRow1 = this.initKeys(115, SECOND_ROW_LENGHT, keysMapping);
     this.extraKeysRow2 = this.initKeys(125, THIRD_ROW_LENGHT, keysMapping);
-    
+
     this.keys = this.lowkeysRow0.concat(
       this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3,
       this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3,
       this.numericKeysRow0, this.numericKeysRow1, this.numericKeysRow2,
       this.extraKeysRow0, this.extraKeysRow1, this.extraKeysRow2,
     );
-    
+
     this.setVisibleKeyboardRows(Array.of(
       this.lowkeysRow0,
       this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3,
     ));
-    
-    keyboardContainer.append(actionsContainer, ...this.rows);
+
+    keyboardContainer.appendChild(actionsContainer);
+    for (let i = 0; i < this.rows.length; i += 1) {
+      keyboardContainer.appendChild(this.rows[i]);
+    }
     document.body.appendChild(keyboardContainer);
   }
   /**
@@ -273,19 +277,21 @@ export default class VirtualKeyboard {
       while (this.rows[i].firstChild) {
         this.rows[i].removeChild(this.rows[i].firstChild);
       }
-      this.rows[i].append(...keysRow[i]);
+      for (let j= 0; j < keysRow[i].length; j += 1) {
+        this.rows[i].appendChild(keysRow[i][j]);
+      }
     }
   }
   /**
    * Set the position of the virtual keyboard
    * under the input HTML element with center alignment
-   * @memberof VirtualKeyboard  
+   * @memberof VirtualKeyboard
    */
   setKeyboardPosition(currentInputElement) {
     const inputCoord = currentInputElement.getBoundingClientRect();
     const virtualKeyboardWidth = this.keyboardContainer.getBoundingClientRect().width;
     let left = ((currentInputElement.offsetWidth / 2) - (virtualKeyboardWidth / 2)) +
-    inputCoord.left + document.documentElement.scrollLeft;
+      inputCoord.left + document.documentElement.scrollLeft;
     const top = inputCoord.top +
       currentInputElement.offsetHeight + 15 + document.documentElement.scrollTop;
 
@@ -302,7 +308,7 @@ export default class VirtualKeyboard {
   launchVirtualKeyboard() {
     const hookLaunchers = document.querySelectorAll('.virtual-keyboard-hook');
     if (hookLaunchers.length > 0) {
-      [...hookLaunchers].forEach((hookLauncher) => {
+      Array.from(hookLaunchers).forEach((hookLauncher) => {
         hookLauncher.addEventListener('click', this.handleClickOnVirtualKeyboardHook.bind(this, hookLauncher));
       });
     }
