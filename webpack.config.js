@@ -5,7 +5,7 @@ const path = require('path');
 const dev = process.env.NODE_ENV === 'development';
 const config = {
   entry: {
-    'dist/virtual-keyboard': path.join(__dirname, '/src/index.js'),
+    'dist/virtual-keyboard.min': path.join(__dirname, '/src/index.js'),
   },
   watch: dev,
   output: {

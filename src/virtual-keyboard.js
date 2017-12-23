@@ -197,10 +197,7 @@ export default class VirtualKeyboard {
   initKeyboardActionsContainer() {
     this.actionsContainer = document.createElement('div');
     this.actionsContainer.classList.add('actions-container');
-    this.actionsContainer.innerHTML = '<span class="config-button">' +
-      '<i class="fa fa-cog" aria-hidden="true"></i>' +
-      '</span>' +
-      '<span class="close-button">' +
+    this.actionsContainer.innerHTML = '<span class="close-button">' +
       '<i class="fa fa-times" aria-hidden="true"></i>' +
       '</span>';
   }
