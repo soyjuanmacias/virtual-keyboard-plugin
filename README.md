@@ -61,7 +61,7 @@ $ yarn add virtual-keyboard-plugin --save
 
  IE9+ , Chrome , Firefox, Opera
 ### TODO
-
+* Refactoring : use of factory function instead of es6 class
 * Support of characters with accents
 * Add a new key for smileys before the space key
 * Add posibility to choose keyboard position (default is bottom centered)
