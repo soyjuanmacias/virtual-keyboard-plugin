@@ -36,7 +36,7 @@ $ yarn add virtual-keyboard-plugin --save
 ## Configuration
 * Add fontawesome css file in your index.html  
 * Add virtual-keyboard.css which is inside the node_modules/virtual-keyboard folder
-* Add the javascript file of the virtual-keyboard plugin at the end of your index.html
+* **Add the javascript file of the virtual-keyboard plugin at the end of your index.html**
 
 ```html
 <link rel="stylesheet" href="../node_modules/virtual-keyboard-plugin/dist/virtual-keyboard.css">
