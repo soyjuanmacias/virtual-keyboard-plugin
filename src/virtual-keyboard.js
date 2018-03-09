@@ -38,8 +38,10 @@ export default class VirtualKeyboard {
    */
   enterKeyEvent(key) {
     key.addEventListener('click', () => {
-      this.currentInputElement.value =
-        `${this.currentInputElement.value.slice(0, this.inputCaretPosition)}\n${this.currentInputElement.value.slice(this.inputCaretPosition)}`;
+      this.currentInputElement.value = `${this.currentInputElement.value.slice(
+        0,
+        this.inputCaretPosition
+      )}\n${this.currentInputElement.value.slice(this.inputCaretPosition)}`;
       this.incrementCaretPosition();
     });
   }
@@ -65,7 +67,9 @@ export default class VirtualKeyboard {
    */
   upperCaseKeyEvent(key) {
     key.addEventListener('click', () => {
-      this.setVisibleKeyboardRows(Array.of(this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3));
+      this.setVisibleKeyboardRows(
+        Array.of(this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3)
+      );
     });
   }
   /**
@@ -76,7 +80,9 @@ export default class VirtualKeyboard {
    */
   lowerCaseKeyEvent(key) {
     key.addEventListener('click', () => {
-      this.setVisibleKeyboardRows(Array.of(this.lowkeysRow0, this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3));
+      this.setVisibleKeyboardRows(
+        Array.of(this.lowkeysRow0, this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3)
+      );
     });
   }
   /**
@@ -87,7 +93,14 @@ export default class VirtualKeyboard {
    */
   numericsKeyEvent(key) {
     key.addEventListener('click', () => {
-      this.setVisibleKeyboardRows(Array.of(this.numericKeysRow0, this.numericKeysRow1, this.numericKeysRow2, this.numericKeysRow3));
+      this.setVisibleKeyboardRows(
+        Array.of(
+          this.numericKeysRow0,
+          this.numericKeysRow1,
+          this.numericKeysRow2,
+          this.numericKeysRow3
+        )
+      );
     });
   }
   /**
@@ -98,7 +111,9 @@ export default class VirtualKeyboard {
    */
   extraKeyEvent(key) {
     key.addEventListener('click', () => {
-      this.setVisibleKeyboardRows(Array.of(this.extraKeysRow0, this.extraKeysRow1, this.extraKeysRow2, this.numericKeysRow3));
+      this.setVisibleKeyboardRows(
+        Array.of(this.extraKeysRow0, this.extraKeysRow1, this.extraKeysRow2, this.numericKeysRow3)
+      );
     });
   }
   /**
@@ -197,9 +212,8 @@ export default class VirtualKeyboard {
   initKeyboardActionsContainer() {
     this.actionsContainer = document.createElement('div');
     this.actionsContainer.classList.add('actions-container');
-    this.actionsContainer.innerHTML = '<span class="close-button">' +
-      '<i class="fa fa-times" aria-hidden="true"></i>' +
-      '</span>';
+    this.actionsContainer.innerHTML =
+      '<span class="close-button"><i class="fa fa-times" aria-hidden="true"></i></span>';
   }
 
   /**
@@ -247,16 +261,24 @@ export default class VirtualKeyboard {
     this.extraKeysRow2 = this.initKeys(125, THIRD_ROW_LENGHT, keysMapping);
 
     this.keys = this.lowkeysRow0.concat(
-      this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3,
-      this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3,
-      this.numericKeysRow0, this.numericKeysRow1, this.numericKeysRow2,
-      this.extraKeysRow0, this.extraKeysRow1, this.extraKeysRow2,
+      this.lowkeysRow1,
+      this.lowkeysRow2,
+      this.lowkeysRow3,
+      this.upperkeysRow0,
+      this.upperkeysRow1,
+      this.upperkeysRow2,
+      this.upperkeysRow3,
+      this.numericKeysRow0,
+      this.numericKeysRow1,
+      this.numericKeysRow2,
+      this.extraKeysRow0,
+      this.extraKeysRow1,
+      this.extraKeysRow2
     );
 
-    this.setVisibleKeyboardRows(Array.of(
-      this.lowkeysRow0,
-      this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3,
-    ));
+    this.setVisibleKeyboardRows(
+      Array.of(this.lowkeysRow0, this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3)
+    );
 
     keyboardContainer.appendChild(actionsContainer);
     for (let i = 0; i < this.rows.length; i += 1) {
@@ -274,7 +296,7 @@ export default class VirtualKeyboard {
       while (this.rows[i].firstChild) {
         this.rows[i].removeChild(this.rows[i].firstChild);
       }
-      for (let j= 0; j < keysRow[i].length; j += 1) {
+      for (let j = 0; j < keysRow[i].length; j += 1) {
         this.rows[i].appendChild(keysRow[i][j]);
       }
     }
@@ -287,10 +309,13 @@ export default class VirtualKeyboard {
   setKeyboardPosition(currentInputElement) {
     const inputCoord = currentInputElement.getBoundingClientRect();
     const virtualKeyboardWidth = this.keyboardContainer.getBoundingClientRect().width;
-    let left = ((currentInputElement.offsetWidth / 2) - (virtualKeyboardWidth / 2)) +
-      inputCoord.left + document.documentElement.scrollLeft;
-    const top = inputCoord.top +
-      currentInputElement.offsetHeight + 15 + document.documentElement.scrollTop;
+    let left =
+      currentInputElement.offsetWidth / 2 -
+      virtualKeyboardWidth / 2 +
+      inputCoord.left +
+      document.documentElement.scrollLeft;
+    const top =
+      inputCoord.top + currentInputElement.offsetHeight + 15 + document.documentElement.scrollTop;
 
     if (left < 20) {
       left = 20;
@@ -306,7 +331,10 @@ export default class VirtualKeyboard {
     const hookLaunchers = document.querySelectorAll('.virtual-keyboard-hook');
     if (hookLaunchers.length > 0) {
       Array.from(hookLaunchers).forEach((hookLauncher) => {
-        hookLauncher.addEventListener('click', this.handleClickOnVirtualKeyboardHook.bind(this, hookLauncher));
+        hookLauncher.addEventListener(
+          'click',
+          this.handleClickOnVirtualKeyboardHook.bind(this, hookLauncher)
+        );
       });
     }
   }
