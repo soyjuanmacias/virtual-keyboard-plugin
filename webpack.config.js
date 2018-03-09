@@ -1,50 +1,40 @@
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
-const dev = process.env.NODE_ENV === 'development';
-const config = {
+const copyCssFiles = function copyCssFiles() {
+  return new CopyWebpackPlugin([
+    {
+      from: path.resolve(__dirname, 'public/styles.css'),
+      to: path.resolve(__dirname, 'dist/virtual-keyboard.css')
+    }
+  ]);
+};
+
+const config = (env, argv) => ({
   entry: {
-    'dist/virtual-keyboard.min': path.join(__dirname, '/src/index.js'),
+    'dist/virtual-keyboard.min': path.join(__dirname, '/src/index.js')
   },
-  watch: dev,
   output: {
     path: path.resolve(__dirname),
-    filename: '[name].js',
+    filename: '[name].js'
   },
   module: {
-    rules: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader',
-      options: {
-        presets: [
-          'env',
-        ],
-      },
-    }],
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['env']
+        }
+      }
+    ]
   },
   devServer: {
     contentBase: '.',
-    hot: true,
+    hot: true
   },
-  plugins: [],
-};
-
-
-const copyCssFiles = function copyCssFiles() {
-  return new CopyWebpackPlugin([{
-    from: path.resolve(__dirname, 'public/styles.css'),
-    to: path.resolve(__dirname, 'dist/virtual-keyboard.css'),
-  }]);
-};
-
-const uglifyJsPlugin = function uglifyJsPlugin() {
-  return new UglifyJsPlugin();
-};
-
-if (!dev) {
-  config.plugins.push(uglifyJsPlugin(), copyCssFiles());
-}
+  plugins: argv.mode === 'production' ? [copyCssFiles()] : []
+});
 
 module.exports = config;

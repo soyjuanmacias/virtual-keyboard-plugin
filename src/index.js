@@ -1,4 +1,5 @@
-
 import VirtualKeyboard from '../src/virtual-keyboard';
 
-const virtualkeyboardintance = new VirtualKeyboard().launchVirtualKeyboard();
+document.addEventListener('DOMContentLoaded', () => {
+  new VirtualKeyboard().launchVirtualKeyboard();
+});

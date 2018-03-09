@@ -6,7 +6,7 @@ describe('virtualkeyboard', () => {
   let virtualkeyboardInstance;
   let hookLauncher;
   let inputElement;
-  
+
   beforeEach(() => {
     virtualkeyboardInstance = new VirtualKeyboard();
     hookLauncher = document.createElement('div');
@@ -21,12 +21,12 @@ describe('virtualkeyboard', () => {
     inputElement = document.createElement('textarea');
     inputElement.id = 'id1';
     inputElement.setAttribute('virtual-keyboard', true);
-    spyOn(document, 'getElementById').and.callFake((args) => {
+    spyOn(document, 'getElementById').and.callFake(args => {
       if (args === 'id1') {
         return inputElement;
       }
     });
-    spyOn(document, 'querySelectorAll').and.callFake((args) => {
+    spyOn(document, 'querySelectorAll').and.callFake(args => {
       switch (args) {
         case '.virtual-keyboard-hook':
           return [hookLauncher];
@@ -41,18 +41,23 @@ describe('virtualkeyboard', () => {
     expect(virtualkeyboardInstance.isvisible).toBeFalsy();
     expect(virtualkeyboardInstance.inputCaretPosition).toEqual(0);
     expect(virtualkeyboardInstance.keys).toBe(null);
-    expect(virtualkeyboardInstance.targetedInputsElements).toEqual(jasmine.any(Set));
+    expect(virtualkeyboardInstance.targetedInputsElements).toEqual(
+      jasmine.any(Set)
+    );
   });
 
   it('should set the correct position of the virtual keyboard after create', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     const elem = document.createElement('textarea');
-    spyOn(virtualkeyboardInstance.keyboardContainer, 'getBoundingClientRect').and.returnValue({
-      width: 700,
+    spyOn(
+      virtualkeyboardInstance.keyboardContainer,
+      'getBoundingClientRect'
+    ).and.returnValue({
+      width: 700
     });
     spyOn(elem, 'getBoundingClientRect').and.returnValue({
       left: 600,
-      top: 50,
+      top: 50
     });
     virtualkeyboardInstance.setKeyboardPosition(elem);
     expect(virtualkeyboardInstance.keyboardContainer.style.left).toBe('250px');
@@ -62,12 +67,15 @@ describe('virtualkeyboard', () => {
   it('should set the correct position of the virtual keyboard when the position of the targeted input is close to the browser border', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     const elem = document.createElement('textarea');
-    spyOn(virtualkeyboardInstance.keyboardContainer, 'getBoundingClientRect').and.returnValue({
-      width: 700,
+    spyOn(
+      virtualkeyboardInstance.keyboardContainer,
+      'getBoundingClientRect'
+    ).and.returnValue({
+      width: 700
     });
     spyOn(elem, 'getBoundingClientRect').and.returnValue({
       left: 180,
-      top: 50,
+      top: 50
     });
     virtualkeyboardInstance.setKeyboardPosition(elem);
     expect(virtualkeyboardInstance.keyboardContainer.style.left).toBe('20px');
@@ -76,18 +84,26 @@ describe('virtualkeyboard', () => {
 
   it('should close the virtual keyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
-    const closeButton = virtualkeyboardInstance.actionsContainer.querySelector('.close-button');
+    const closeButton = virtualkeyboardInstance.actionsContainer.querySelector(
+      '.close-button'
+    );
     closeButton.click();
 
     expect(virtualkeyboardInstance.isvisible).toBeFalsy();
-    expect(virtualkeyboardInstance.keyboardContainer.classList.contains('visible')).toBeFalsy();
+    expect(
+      virtualkeyboardInstance.keyboardContainer.classList.contains('visible')
+    ).toBeFalsy();
   });
 
   it('should back to new line when enter key is pressed', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.currentInputElement.value = 'test1';
     virtualkeyboardInstance.inputCaretPosition = 5;
-    const enterKey = virtualkeyboardInstance.keys.find((element) => element.outerHTML === '<div class="key enter-key" data-action="enter">Enter</div>');
+    const enterKey = virtualkeyboardInstance.keys.find(
+      element =>
+        element.outerHTML ===
+        '<div class="key enter-key" data-action="enter">Enter</div>'
+    );
 
     enterKey.click();
     expect(virtualkeyboardInstance.currentInputElement.value).toBe('test1\n');
@@ -97,9 +113,13 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.currentInputElement.value = 'test1';
     virtualkeyboardInstance.inputCaretPosition = 1;
-    const backspaceKey = virtualkeyboardInstance.keys.find(element => element.outerHTML === '<div class="key backspace-key" data-action="backspace">' +
-      '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
-      '</div>');
+    const backspaceKey = virtualkeyboardInstance.keys.find(
+      element =>
+        element.outerHTML ===
+        '<div class="key backspace-key" data-action="backspace">' +
+          '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
+          '</div>'
+    );
 
     backspaceKey.click();
     expect(virtualkeyboardInstance.currentInputElement.value).toBe('est1');
@@ -118,15 +138,26 @@ describe('virtualkeyboard', () => {
     spyOn(virtualkeyboardInstance.currentInputElement, 'setSelectionRange');
     virtualkeyboardInstance.currentInputElement.value = 'test';
     virtualkeyboardInstance.inputCaretPosition = 4;
-    const key = virtualkeyboardInstance.keys.find(element => element.outerHTML === '<div class="key" data-ascii="97">a</div>');
+    const key = virtualkeyboardInstance.keys.find(
+      element =>
+        element.outerHTML === '<div class="key" data-ascii="97">a</div>'
+    );
     key.click();
     key.click();
     key.click();
     expect(virtualkeyboardInstance.inputCaretPosition).toBe(7);
-    expect(virtualkeyboardInstance.currentInputElement.focus).toHaveBeenCalled();
-    expect(virtualkeyboardInstance.currentInputElement.setSelectionRange).toHaveBeenCalledWith(5, 5);
-    expect(virtualkeyboardInstance.currentInputElement.setSelectionRange).toHaveBeenCalledWith(6, 6);
-    expect(virtualkeyboardInstance.currentInputElement.setSelectionRange).toHaveBeenCalledWith(7, 7);
+    expect(
+      virtualkeyboardInstance.currentInputElement.focus
+    ).toHaveBeenCalled();
+    expect(
+      virtualkeyboardInstance.currentInputElement.setSelectionRange
+    ).toHaveBeenCalledWith(5, 5);
+    expect(
+      virtualkeyboardInstance.currentInputElement.setSelectionRange
+    ).toHaveBeenCalledWith(6, 6);
+    expect(
+      virtualkeyboardInstance.currentInputElement.setSelectionRange
+    ).toHaveBeenCalledWith(7, 7);
   });
 
   it('should change the caretPostion of the currentInputElement when typing with real keyboard', () => {
@@ -135,12 +166,11 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.currentInputElement.click();
     const event = new KeyboardEvent('keydown', {
       cancelable: true,
-      key: 'a',
+      key: 'a'
     });
     virtualkeyboardInstance.currentInputElement.dispatchEvent(event);
     expect(virtualkeyboardInstance.inputCaretPosition).toBe(5);
   });
-
 
   it('should decrement the caretPostion on the currentInputElement when backspacing with virtual keyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
@@ -149,83 +179,131 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.currentInputElement.value = 'test1';
     virtualkeyboardInstance.inputCaretPosition = 3;
-    const backspaceKey = virtualkeyboardInstance.keys.find(element => element.outerHTML === '<div class="key backspace-key" data-action="backspace">' +
-      '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
-      '</div>');
+    const backspaceKey = virtualkeyboardInstance.keys.find(
+      element =>
+        element.outerHTML ===
+        '<div class="key backspace-key" data-action="backspace">' +
+          '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
+          '</div>'
+    );
     backspaceKey.click();
     expect(virtualkeyboardInstance.inputCaretPosition).toEqual(2);
-    expect(virtualkeyboardInstance.currentInputElement.focus).toHaveBeenCalled();
-    expect(virtualkeyboardInstance.currentInputElement.setSelectionRange).toHaveBeenCalledWith(2, 2);
+    expect(
+      virtualkeyboardInstance.currentInputElement.focus
+    ).toHaveBeenCalled();
+    expect(
+      virtualkeyboardInstance.currentInputElement.setSelectionRange
+    ).toHaveBeenCalledWith(2, 2);
   });
 
   it('should change the value of the currentInputElement and increment the caretPosition when typing with the virtual keyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.currentInputElement.value = 'Bonjour';
     virtualkeyboardInstance.inputCaretPosition = 7;
-    const key1 = virtualkeyboardInstance.keys.find(element => element.outerHTML === '<div class="key" data-ascii="97">a</div>');
-    const key2 = virtualkeyboardInstance.keys.find(element => element.outerHTML === '<div class="key" data-ascii="122">z</div>');
-    const key3 = virtualkeyboardInstance.keys.find(element => element.outerHTML === '<div class="key" data-ascii="101">e</div>');
-    const key4 = virtualkeyboardInstance.keys.find(element => element.outerHTML === '<div class="key" data-ascii="114">r</div>');
+    const key1 = virtualkeyboardInstance.keys.find(
+      element =>
+        element.outerHTML === '<div class="key" data-ascii="97">a</div>'
+    );
+    const key2 = virtualkeyboardInstance.keys.find(
+      element =>
+        element.outerHTML === '<div class="key" data-ascii="122">z</div>'
+    );
+    const key3 = virtualkeyboardInstance.keys.find(
+      element =>
+        element.outerHTML === '<div class="key" data-ascii="101">e</div>'
+    );
+    const key4 = virtualkeyboardInstance.keys.find(
+      element =>
+        element.outerHTML === '<div class="key" data-ascii="114">r</div>'
+    );
 
     key1.click();
     key2.click();
     key3.click();
     key4.click();
-    expect(virtualkeyboardInstance.currentInputElement.value).toBe('Bonjourazer');
+    expect(virtualkeyboardInstance.currentInputElement.value).toBe(
+      'Bonjourazer'
+    );
     expect(virtualkeyboardInstance.inputCaretPosition).toEqual(11);
   });
 
   it('should set the Uppercase keys layout visible', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.inputCaretPosition = 1;
-    const upperCaseKey = virtualkeyboardInstance.keys.find(element => element.outerHTML === '<div class="key" data-action="uppercase">' +
-      '<i class="fa fa-arrow-up" aria-hidden="true"></i>' +
-      '</div>');
+    const upperCaseKey = virtualkeyboardInstance.keys.find(
+      element =>
+        element.outerHTML ===
+        '<div class="key" data-action="uppercase">' +
+          '<i class="fa fa-arrow-up" aria-hidden="true"></i>' +
+          '</div>'
+    );
 
     upperCaseKey.click();
-    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(upperCaseKeysHTML);
+    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(
+      upperCaseKeysHTML
+    );
   });
 
   it('should set the numerics keys layout visible', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.inputCaretPosition = 1;
-    const numericsKeys = virtualkeyboardInstance.keys.find(element => element.outerHTML === '<div class="key" data-action="numerics">#123?</div>');
+    const numericsKeys = virtualkeyboardInstance.keys.find(
+      element =>
+        element.outerHTML ===
+        '<div class="key" data-action="numerics">#123?</div>'
+    );
 
     numericsKeys.click();
-    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(numericsKeysHTML);
+    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(
+      numericsKeysHTML
+    );
   });
 
   it('should set the extra keys layout visible', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.inputCaretPosition = 1;
-    const extraKeys = virtualkeyboardInstance.keys.find(element =>
-      element.outerHTML === '<div class="key" data-action="extrakeys">=\\&lt;</div>');
+    const extraKeys = virtualkeyboardInstance.keys.find(
+      element =>
+        element.outerHTML ===
+        '<div class="key" data-action="extrakeys">=\\&lt;</div>'
+    );
 
     extraKeys.click();
-    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(extraKeysHTML);
+    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(
+      extraKeysHTML
+    );
   });
 
   it('should set the lowercase keys layout visible', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.inputCaretPosition = 1;
-    const lowercaseKeys = virtualkeyboardInstance.keys.find(element => element.outerHTML === '<div class="key" data-action="lowercase">' +
-      '<i class="fa fa-arrow-up" aria-hidden="true"></i>' +
-      '</div>');
+    const lowercaseKeys = virtualkeyboardInstance.keys.find(
+      element =>
+        element.outerHTML ===
+        '<div class="key" data-action="lowercase">' +
+          '<i class="fa fa-arrow-up" aria-hidden="true"></i>' +
+          '</div>'
+    );
 
     lowercaseKeys.click();
-    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(lowerCaseKeysHTML);
+    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(
+      lowerCaseKeysHTML
+    );
   });
-
 
   it('should have created the HTML of the azerty virtual keyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
-    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(lowerCaseKeysHTML);
+    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(
+      lowerCaseKeysHTML
+    );
   });
 
   it('should have created the HTML of the qwerty virtual keyboard', () => {
     hookLauncher.dataset.keyboardMapping = 'qwerty';
     virtualkeyboardInstance.launchVirtualKeyboard();
-    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(qwertyKeysHTML);
+    expect(virtualkeyboardInstance.keyboardContainer.outerHTML).toBe(
+      qwertyKeysHTML
+    );
   });
 
   it('should remove the virtualkeyboard of the parent Node when another the targeted input element isnt the same ', () => {
@@ -238,7 +316,7 @@ describe('virtualkeyboard', () => {
   });
 
   it('should have not created the HTML of the virtual keyboard when hook is not present', () => {
-    document.querySelectorAll.and.callFake((args) => {
+    document.querySelectorAll.and.callFake(args => {
       switch (args) {
         case '.virtual-keyboard-hook':
           return [];
@@ -256,8 +334,8 @@ describe('virtualkeyboard', () => {
   });
 });
 
-
-const lowerCaseKeysHTML = '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
+const lowerCaseKeysHTML =
+  '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
   '<div class="actions-container">' +
   '<span class="close-button">' +
   '<i class="fa fa-times" aria-hidden="true"></i>' +
@@ -312,7 +390,8 @@ const lowerCaseKeysHTML = '<div class="keyboard-container visible" style="left: 
   '</div>' +
   '</div>';
 
-const upperCaseKeysHTML = '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
+const upperCaseKeysHTML =
+  '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
   '<div class="actions-container">' +
   '<span class="close-button">' +
   '<i class="fa fa-times" aria-hidden="true"></i>' +
@@ -367,7 +446,8 @@ const upperCaseKeysHTML = '<div class="keyboard-container visible" style="left: 
   '</div>' +
   '</div>';
 
-const extraKeysHTML = '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
+const extraKeysHTML =
+  '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
   '<div class="actions-container">' +
   '<span class="close-button">' +
   '<i class="fa fa-times" aria-hidden="true"></i>' +
@@ -420,7 +500,8 @@ const extraKeysHTML = '<div class="keyboard-container visible" style="left: 20px
   '</div>' +
   '</div>';
 
-const numericsKeysHTML = '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
+const numericsKeysHTML =
+  '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
   '<div class="actions-container">' +
   '<span class="close-button">' +
   '<i class="fa fa-times" aria-hidden="true"></i>' +
@@ -473,7 +554,8 @@ const numericsKeysHTML = '<div class="keyboard-container visible" style="left: 2
   '</div>' +
   '</div>';
 
-const qwertyKeysHTML = '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
+const qwertyKeysHTML =
+  '<div class="keyboard-container visible" style="left: 20px; top: 15px;">' +
   '<div class="actions-container">' +
   '<span class="close-button">' +
   '<i class="fa fa-times" aria-hidden="true"></i>' +
