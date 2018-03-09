@@ -36,12 +36,12 @@ $ yarn add virtual-keyboard-plugin --save
 ## Configuration
 * Add fontawesome css file in your index.html  
 * Add virtual-keyboard.css which is inside the node_modules/virtual-keyboard folder
-* **Add the javascript file of the virtual-keyboard plugin at the end of your index.html**
+* Add the javascript file of the virtual-keyboard plugin in your index.html (before body or after as you want)
 
 ```html
 <link rel="stylesheet" href="../node_modules/virtual-keyboard-plugin/dist/virtual-keyboard.css">
 <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
-<script src="../node_modules/virtual-keyboard-plugin/dist/virtual-keyboard.js"></script>
+<script src="../node_modules/virtual-keyboard-plugin/dist/virtual-keyboard.min.js"></script>
 ```
 * add 'virtual-keyboard' as an attribute of your input/text-area
 * Create a new HTML element that will serve as a button to open the virtual keyboard and add to it two attributes :
@@ -61,7 +61,6 @@ $ yarn add virtual-keyboard-plugin --save
 
  IE9+ , Chrome , Firefox, Opera
 ### TODO
-* Refactoring : use of factory function instead of es6 class
 * Support of characters with accents
 * Add a new key for smileys before the space key
 * Add posibility to choose keyboard position (default is bottom centered)
