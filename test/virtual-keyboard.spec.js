@@ -21,12 +21,12 @@ describe('virtualkeyboard', () => {
     inputElement = document.createElement('textarea');
     inputElement.id = 'id1';
     inputElement.setAttribute('virtual-keyboard', true);
-    spyOn(document, 'getElementById').and.callFake(args => {
+    spyOn(document, 'getElementById').and.callFake((args) => {
       if (args === 'id1') {
         return inputElement;
       }
     });
-    spyOn(document, 'querySelectorAll').and.callFake(args => {
+    spyOn(document, 'querySelectorAll').and.callFake((args) => {
       switch (args) {
         case '.virtual-keyboard-hook':
           return [hookLauncher];
@@ -100,7 +100,7 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.currentInputElement.value = 'test1';
     virtualkeyboardInstance.inputCaretPosition = 5;
     const enterKey = virtualkeyboardInstance.keys.find(
-      element =>
+      (element) =>
         element.outerHTML ===
         '<div class="key enter-key" data-action="enter">Enter</div>'
     );
@@ -114,7 +114,7 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.currentInputElement.value = 'test1';
     virtualkeyboardInstance.inputCaretPosition = 1;
     const backspaceKey = virtualkeyboardInstance.keys.find(
-      element =>
+      (element) =>
         element.outerHTML ===
         '<div class="key backspace-key" data-action="backspace">' +
           '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
@@ -123,6 +123,37 @@ describe('virtualkeyboard', () => {
 
     backspaceKey.click();
     expect(virtualkeyboardInstance.currentInputElement.value).toBe('est1');
+  });
+
+  it('should do nothing when the cursor is at the begining of the line and backspace is fired', () => {
+    virtualkeyboardInstance.launchVirtualKeyboard();
+    virtualkeyboardInstance.currentInputElement.value = 'test1';
+    virtualkeyboardInstance.inputCaretPosition = 0;
+    const backspaceKey = virtualkeyboardInstance.keys.find(
+      (element) =>
+        element.outerHTML ===
+        '<div class="key backspace-key" data-action="backspace">' +
+          '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
+          '</div>'
+    );
+
+    backspaceKey.click();
+    expect(virtualkeyboardInstance.currentInputElement.value).toBe('test1');
+  });
+
+  it('should do nothing when the input value is empty and backspace is fired', () => {
+    virtualkeyboardInstance.launchVirtualKeyboard();
+    virtualkeyboardInstance.currentInputElement.value = '';
+    const backspaceKey = virtualkeyboardInstance.keys.find(
+      (element) =>
+        element.outerHTML ===
+        '<div class="key backspace-key" data-action="backspace">' +
+          '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
+          '</div>'
+    );
+
+    backspaceKey.click();
+    expect(virtualkeyboardInstance.currentInputElement.value).toBe('');
   });
 
   it('should set the correct caretPosition to the clicked position when the input is clicked', () => {
@@ -139,7 +170,7 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.currentInputElement.value = 'test';
     virtualkeyboardInstance.inputCaretPosition = 4;
     const key = virtualkeyboardInstance.keys.find(
-      element =>
+      (element) =>
         element.outerHTML === '<div class="key" data-ascii="97">a</div>'
     );
     key.click();
@@ -180,7 +211,7 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.currentInputElement.value = 'test1';
     virtualkeyboardInstance.inputCaretPosition = 3;
     const backspaceKey = virtualkeyboardInstance.keys.find(
-      element =>
+      (element) =>
         element.outerHTML ===
         '<div class="key backspace-key" data-action="backspace">' +
           '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
@@ -201,19 +232,19 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.currentInputElement.value = 'Bonjour';
     virtualkeyboardInstance.inputCaretPosition = 7;
     const key1 = virtualkeyboardInstance.keys.find(
-      element =>
+      (element) =>
         element.outerHTML === '<div class="key" data-ascii="97">a</div>'
     );
     const key2 = virtualkeyboardInstance.keys.find(
-      element =>
+      (element) =>
         element.outerHTML === '<div class="key" data-ascii="122">z</div>'
     );
     const key3 = virtualkeyboardInstance.keys.find(
-      element =>
+      (element) =>
         element.outerHTML === '<div class="key" data-ascii="101">e</div>'
     );
     const key4 = virtualkeyboardInstance.keys.find(
-      element =>
+      (element) =>
         element.outerHTML === '<div class="key" data-ascii="114">r</div>'
     );
 
@@ -231,7 +262,7 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.inputCaretPosition = 1;
     const upperCaseKey = virtualkeyboardInstance.keys.find(
-      element =>
+      (element) =>
         element.outerHTML ===
         '<div class="key" data-action="uppercase">' +
           '<i class="fa fa-arrow-up" aria-hidden="true"></i>' +
@@ -248,7 +279,7 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.inputCaretPosition = 1;
     const numericsKeys = virtualkeyboardInstance.keys.find(
-      element =>
+      (element) =>
         element.outerHTML ===
         '<div class="key" data-action="numerics">#123?</div>'
     );
@@ -263,7 +294,7 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.inputCaretPosition = 1;
     const extraKeys = virtualkeyboardInstance.keys.find(
-      element =>
+      (element) =>
         element.outerHTML ===
         '<div class="key" data-action="extrakeys">=\\&lt;</div>'
     );
@@ -278,7 +309,7 @@ describe('virtualkeyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.inputCaretPosition = 1;
     const lowercaseKeys = virtualkeyboardInstance.keys.find(
-      element =>
+      (element) =>
         element.outerHTML ===
         '<div class="key" data-action="lowercase">' +
           '<i class="fa fa-arrow-up" aria-hidden="true"></i>' +
@@ -316,7 +347,7 @@ describe('virtualkeyboard', () => {
   });
 
   it('should have not created the HTML of the virtual keyboard when hook is not present', () => {
-    document.querySelectorAll.and.callFake(args => {
+    document.querySelectorAll.and.callFake((args) => {
       switch (args) {
         case '.virtual-keyboard-hook':
           return [];

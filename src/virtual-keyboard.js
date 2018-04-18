@@ -53,6 +53,7 @@ export default class VirtualKeyboard {
    */
   backSpaceKeyEvent(key) {
     key.addEventListener('click', () => {
+      if (!this.currentInputElement.value || !this.inputCaretPosition) return;
       this.currentInputElement.value =
         this.currentInputElement.value.slice(0, this.inputCaretPosition - 1) +
         this.currentInputElement.value.slice(this.inputCaretPosition);
@@ -68,7 +69,12 @@ export default class VirtualKeyboard {
   upperCaseKeyEvent(key) {
     key.addEventListener('click', () => {
       this.setVisibleKeyboardRows(
-        Array.of(this.upperkeysRow0, this.upperkeysRow1, this.upperkeysRow2, this.upperkeysRow3)
+        Array.of(
+          this.upperkeysRow0,
+          this.upperkeysRow1,
+          this.upperkeysRow2,
+          this.upperkeysRow3
+        )
       );
     });
   }
@@ -81,7 +87,12 @@ export default class VirtualKeyboard {
   lowerCaseKeyEvent(key) {
     key.addEventListener('click', () => {
       this.setVisibleKeyboardRows(
-        Array.of(this.lowkeysRow0, this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3)
+        Array.of(
+          this.lowkeysRow0,
+          this.lowkeysRow1,
+          this.lowkeysRow2,
+          this.lowkeysRow3
+        )
       );
     });
   }
@@ -112,7 +123,12 @@ export default class VirtualKeyboard {
   extraKeyEvent(key) {
     key.addEventListener('click', () => {
       this.setVisibleKeyboardRows(
-        Array.of(this.extraKeysRow0, this.extraKeysRow1, this.extraKeysRow2, this.numericKeysRow3)
+        Array.of(
+          this.extraKeysRow0,
+          this.extraKeysRow1,
+          this.extraKeysRow2,
+          this.numericKeysRow3
+        )
       );
     });
   }
@@ -122,7 +138,10 @@ export default class VirtualKeyboard {
    */
   incrementCaretPosition() {
     this.inputCaretPosition += 1;
-    this.currentInputElement.setSelectionRange(this.inputCaretPosition, this.inputCaretPosition);
+    this.currentInputElement.setSelectionRange(
+      this.inputCaretPosition,
+      this.inputCaretPosition
+    );
     this.currentInputElement.focus();
   }
   /**
@@ -131,7 +150,10 @@ export default class VirtualKeyboard {
    */
   decrementCaretPosition() {
     this.inputCaretPosition -= 1;
-    this.currentInputElement.setSelectionRange(this.inputCaretPosition, this.inputCaretPosition);
+    this.currentInputElement.setSelectionRange(
+      this.inputCaretPosition,
+      this.inputCaretPosition
+    );
     this.currentInputElement.focus();
   }
   /**
@@ -277,7 +299,12 @@ export default class VirtualKeyboard {
     );
 
     this.setVisibleKeyboardRows(
-      Array.of(this.lowkeysRow0, this.lowkeysRow1, this.lowkeysRow2, this.lowkeysRow3)
+      Array.of(
+        this.lowkeysRow0,
+        this.lowkeysRow1,
+        this.lowkeysRow2,
+        this.lowkeysRow3
+      )
     );
 
     keyboardContainer.appendChild(actionsContainer);
@@ -308,14 +335,18 @@ export default class VirtualKeyboard {
    */
   setKeyboardPosition(currentInputElement) {
     const inputCoord = currentInputElement.getBoundingClientRect();
-    const virtualKeyboardWidth = this.keyboardContainer.getBoundingClientRect().width;
+    const virtualKeyboardWidth = this.keyboardContainer.getBoundingClientRect()
+      .width;
     let left =
       currentInputElement.offsetWidth / 2 -
       virtualKeyboardWidth / 2 +
       inputCoord.left +
       document.documentElement.scrollLeft;
     const top =
-      inputCoord.top + currentInputElement.offsetHeight + 15 + document.documentElement.scrollTop;
+      inputCoord.top +
+      currentInputElement.offsetHeight +
+      15 +
+      document.documentElement.scrollTop;
 
     if (left < 20) {
       left = 20;
@@ -344,7 +375,9 @@ export default class VirtualKeyboard {
    * @memberof VirtualKeyboard
    */
   handleClickOnVirtualKeyboardHook(hookLauncher) {
-    const targetedInput = document.getElementById(hookLauncher.dataset.targetId);
+    const targetedInput = document.getElementById(
+      hookLauncher.dataset.targetId
+    );
     const mapping = hookLauncher.dataset.keyboardMapping;
     if (targetedInput && mapping) {
       this.currentInputElement = targetedInput;
@@ -354,9 +387,17 @@ export default class VirtualKeyboard {
         }
         this.initAllContainers();
         if (mapping === 'qwerty') {
-          this.constructKeyboard(qwertyMapping, this.actionsContainer, this.keyboardContainer);
+          this.constructKeyboard(
+            qwertyMapping,
+            this.actionsContainer,
+            this.keyboardContainer
+          );
         } else {
-          this.constructKeyboard(azertyMapping, this.actionsContainer, this.keyboardContainer);
+          this.constructKeyboard(
+            azertyMapping,
+            this.actionsContainer,
+            this.keyboardContainer
+          );
         }
         targetedInput.addEventListener('click', () => {
           this.inputCaretPosition = this.currentInputElement.selectionStart;
