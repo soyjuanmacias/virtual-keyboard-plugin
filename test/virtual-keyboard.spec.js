@@ -565,7 +565,7 @@ const extraKeysHTML =
   '</div>' +
   '<div class="row-virtual-keyboard">' +
   '<div class="key" data-ascii="126">~</div>' +
-  '<div class="key" data-ascii="94">`</div>' +
+  '<div class="key" data-ascii="96">`</div>' +
   '<div class="key" data-ascii="124">|</div>' +
   '<div class="key" data-ascii="183">·</div>' +
   '<div class="key" data-ascii="61">=</div>' +
@@ -591,7 +591,7 @@ const extraKeysHTML =
   '<div class="key" data-action="numerics">#123?</div>' +
   '<div class="key" data-ascii="42">*</div>' +
   '<div class="key" data-ascii="34">"</div>' +
-  '<div class="key" data-ascii="44">\'</div>' +
+  '<div class="key" data-ascii="39">\'</div>' +
   '<div class="key" data-ascii="58">:</div>' +
   '<div class="key" data-ascii="59">;</div>' +
   '<div class="key" data-ascii="33">!</div>' +
@@ -645,7 +645,7 @@ const numericsKeysHTML =
   '<div class="key" data-action="extrakeys">=\\&lt;</div>' +
   '<div class="key" data-ascii="42">*</div>' +
   '<div class="key" data-ascii="34">"</div>' +
-  '<div class="key" data-ascii="44">\'</div>' +
+  '<div class="key" data-ascii="39">\'</div>' +
   '<div class="key" data-ascii="58">:</div>' +
   '<div class="key" data-ascii="59">;</div>' +
   '<div class="key" data-ascii="33">!</div>' +
