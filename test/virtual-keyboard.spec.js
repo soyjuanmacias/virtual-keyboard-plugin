@@ -102,11 +102,37 @@ describe('virtualkeyboard', () => {
     const enterKey = virtualkeyboardInstance.keys.find(
       (element) =>
         element.outerHTML ===
-        '<div class="key enter-key" data-action="enter">Enter</div>'
+        '<div class="key enter-key" data-action="enter" data-ascii="13">Enter</div>'
     );
 
     enterKey.click();
     expect(virtualkeyboardInstance.currentInputElement.value).toBe('test1\n');
+  });
+
+  it('should dispatch onEnterKey_VK when enter key is pressed', () => {
+    virtualkeyboardInstance.launchVirtualKeyboard();
+    spyOn(virtualkeyboardInstance.currentInputElement, 'dispatchEvent');
+    spyOn(window, 'CustomEvent');
+    virtualkeyboardInstance.currentInputElement.value = 'test1';
+    virtualkeyboardInstance.inputCaretPosition = 5;
+    const enterKey = virtualkeyboardInstance.keys.find(
+      (element) =>
+        element.outerHTML ===
+        '<div class="key enter-key" data-action="enter" data-ascii="13">Enter</div>'
+    );
+
+    enterKey.click();
+    expect(window.CustomEvent).toHaveBeenCalledWith('onEnterKey_VK', {
+      detail: {
+        keyAscii: '13',
+        keyValue: 'Enter',
+        newInputValue: 'test1\n',
+        oldInputValue: 'test1'
+      }
+    });
+    expect(
+      virtualkeyboardInstance.currentInputElement.dispatchEvent
+    ).toHaveBeenCalledWith(new CustomEvent());
   });
 
   it('should delete a character before the caret position', () => {
@@ -116,13 +142,41 @@ describe('virtualkeyboard', () => {
     const backspaceKey = virtualkeyboardInstance.keys.find(
       (element) =>
         element.outerHTML ===
-        '<div class="key backspace-key" data-action="backspace">' +
+        '<div class="key backspace-key" data-action="backspace" data-ascii="8">' +
           '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
           '</div>'
     );
 
     backspaceKey.click();
     expect(virtualkeyboardInstance.currentInputElement.value).toBe('est1');
+  });
+
+  it('should dispatch onBackSpaceKey_VK when backspacekey is pressed', () => {
+    virtualkeyboardInstance.launchVirtualKeyboard();
+    spyOn(virtualkeyboardInstance.currentInputElement, 'dispatchEvent');
+    spyOn(window, 'CustomEvent');
+    virtualkeyboardInstance.currentInputElement.value = 'test1';
+    virtualkeyboardInstance.inputCaretPosition = 5;
+    const backspaceKey = virtualkeyboardInstance.keys.find(
+      (element) =>
+        element.outerHTML ===
+        '<div class="key backspace-key" data-action="backspace" data-ascii="8">' +
+          '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
+          '</div>'
+    );
+
+    backspaceKey.click();
+    expect(window.CustomEvent).toHaveBeenCalledWith('onBackSpaceKey_VK', {
+      detail: {
+        keyAscii: '8',
+        keyValue: 'backspace',
+        newInputValue: 'test',
+        oldInputValue: 'test1'
+      }
+    });
+    expect(
+      virtualkeyboardInstance.currentInputElement.dispatchEvent
+    ).toHaveBeenCalledWith(new CustomEvent());
   });
 
   it('should do nothing when the cursor is at the begining of the line and backspace is fired', () => {
@@ -132,7 +186,7 @@ describe('virtualkeyboard', () => {
     const backspaceKey = virtualkeyboardInstance.keys.find(
       (element) =>
         element.outerHTML ===
-        '<div class="key backspace-key" data-action="backspace">' +
+        '<div class="key backspace-key" data-action="backspace" data-ascii="8">' +
           '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
           '</div>'
     );
@@ -147,7 +201,7 @@ describe('virtualkeyboard', () => {
     const backspaceKey = virtualkeyboardInstance.keys.find(
       (element) =>
         element.outerHTML ===
-        '<div class="key backspace-key" data-action="backspace">' +
+        '<div class="key backspace-key" data-action="backspace" data-ascii="8">' +
           '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
           '</div>'
     );
@@ -191,6 +245,31 @@ describe('virtualkeyboard', () => {
     ).toHaveBeenCalledWith(7, 7);
   });
 
+  it('should dispatch onInputValueChange_VK when the value of the input change due to a key pressed', () => {
+    virtualkeyboardInstance.launchVirtualKeyboard();
+    spyOn(virtualkeyboardInstance.currentInputElement, 'dispatchEvent');
+    spyOn(window, 'CustomEvent');
+    virtualkeyboardInstance.currentInputElement.value = 'test1';
+    virtualkeyboardInstance.inputCaretPosition = 5;
+    const aKey = virtualkeyboardInstance.keys.find(
+      (element) =>
+        element.outerHTML === '<div class="key" data-ascii="97">a</div>'
+    );
+
+    aKey.click();
+    expect(window.CustomEvent).toHaveBeenCalledWith('onInputValueChange_VK', {
+      detail: {
+        keyAscii: '97',
+        keyValue: 'a',
+        newInputValue: 'test1a',
+        oldInputValue: 'test1'
+      }
+    });
+    expect(
+      virtualkeyboardInstance.currentInputElement.dispatchEvent
+    ).toHaveBeenCalledWith(new CustomEvent());
+  });
+
   it('should change the caretPostion of the currentInputElement when typing with real keyboard', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.currentInputElement.value = 'test';
@@ -213,7 +292,7 @@ describe('virtualkeyboard', () => {
     const backspaceKey = virtualkeyboardInstance.keys.find(
       (element) =>
         element.outerHTML ===
-        '<div class="key backspace-key" data-action="backspace">' +
+        '<div class="key backspace-key" data-action="backspace" data-ascii="8">' +
           '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
           '</div>'
     );
@@ -407,7 +486,7 @@ const lowerCaseKeysHTML =
   '<div class="key" data-ascii="98">b</div>' +
   '<div class="key" data-ascii="110">n</div>' +
   '<div class="key" data-ascii="39">\'</div>' +
-  '<div class="key backspace-key" data-action="backspace">' +
+  '<div class="key backspace-key" data-action="backspace" data-ascii="8">' +
   '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
   '</div>' +
   '</div>' +
@@ -417,7 +496,7 @@ const lowerCaseKeysHTML =
   '<div class="key" data-action="emotes"></div>' +
   '<div class="key space-key" data-ascii="32">Space</div>' +
   '<div class="key" data-ascii="46">.</div>' +
-  '<div class="key enter-key" data-action="enter">Enter</div>' +
+  '<div class="key enter-key" data-action="enter" data-ascii="13">Enter</div>' +
   '</div>' +
   '</div>';
 
@@ -463,7 +542,7 @@ const upperCaseKeysHTML =
   '<div class="key" data-ascii="66">B</div>' +
   '<div class="key" data-ascii="78">N</div>' +
   '<div class="key" data-ascii="39">\'</div>' +
-  '<div class="key backspace-key" data-action="backspace">' +
+  '<div class="key backspace-key" data-action="backspace" data-ascii="8">' +
   '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
   '</div>' +
   '</div>' +
@@ -473,7 +552,7 @@ const upperCaseKeysHTML =
   '<div class="key" data-action="emotes"></div>' +
   '<div class="key space-key" data-ascii="32">Space</div>' +
   '<div class="key" data-ascii="46">.</div>' +
-  '<div class="key enter-key" data-action="enter">Enter</div>' +
+  '<div class="key enter-key" data-action="enter" data-ascii="13">Enter</div>' +
   '</div>' +
   '</div>';
 
@@ -517,7 +596,7 @@ const extraKeysHTML =
   '<div class="key" data-ascii="59">;</div>' +
   '<div class="key" data-ascii="33">!</div>' +
   '<div class="key" data-ascii="63">?</div>' +
-  '<div class="key backspace-key" data-action="backspace">' +
+  '<div class="key backspace-key" data-action="backspace" data-ascii="8">' +
   '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
   '</div>' +
   '</div>' +
@@ -527,7 +606,7 @@ const extraKeysHTML =
   '<div class="key" data-action="emotes"></div>' +
   '<div class="key space-key" data-ascii="32">Space</div>' +
   '<div class="key" data-ascii="46">.</div>' +
-  '<div class="key enter-key" data-action="enter">Enter</div>' +
+  '<div class="key enter-key" data-action="enter" data-ascii="13">Enter</div>' +
   '</div>' +
   '</div>';
 
@@ -571,7 +650,7 @@ const numericsKeysHTML =
   '<div class="key" data-ascii="59">;</div>' +
   '<div class="key" data-ascii="33">!</div>' +
   '<div class="key" data-ascii="63">?</div>' +
-  '<div class="key backspace-key" data-action="backspace">' +
+  '<div class="key backspace-key" data-action="backspace" data-ascii="8">' +
   '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
   '</div>' +
   '</div>' +
@@ -581,7 +660,7 @@ const numericsKeysHTML =
   '<div class="key" data-action="emotes"></div>' +
   '<div class="key space-key" data-ascii="32">Space</div>' +
   '<div class="key" data-ascii="46">.</div>' +
-  '<div class="key enter-key" data-action="enter">Enter</div>' +
+  '<div class="key enter-key" data-action="enter" data-ascii="13">Enter</div>' +
   '</div>' +
   '</div>';
 
@@ -627,7 +706,7 @@ const qwertyKeysHTML =
   '<div class="key" data-ascii="98">b</div>' +
   '<div class="key" data-ascii="110">n</div>' +
   '<div class="key" data-ascii="109">m</div>' +
-  '<div class="key backspace-key" data-action="backspace">' +
+  '<div class="key backspace-key" data-action="backspace" data-ascii="8">' +
   '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
   '</div>' +
   '</div>' +
@@ -637,6 +716,6 @@ const qwertyKeysHTML =
   '<div class="key" data-action="emotes"></div>' +
   '<div class="key space-key" data-ascii="32">Space</div>' +
   '<div class="key" data-ascii="46">.</div>' +
-  '<div class="key enter-key" data-action="enter">Enter</div>' +
+  '<div class="key enter-key" data-action="enter" data-ascii="13">Enter</div>' +
   '</div>' +
   '</div>';

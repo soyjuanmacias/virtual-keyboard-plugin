@@ -56,7 +56,27 @@ $ yarn add virtual-keyboard-plugin --save
 ```html
 <input id="Id2" type="text" virtual-keyboard>
 <div class="virtual-keyboard-hook" data-target-id=Id2" data-keyboard-mapping="azerty"><i class="fa fa-keyboard-o" aria-hidden="true"></i></div>
-````
+```
+### Customs Events 
+| event     | description  | event.detail         
+| ------------- |:-------------:| :-------------:|
+| onInputValueChange_VK  | event fired when the value of the input has changed  | keyAscii, keyValue, newInputValue, oldInputValue| 
+| onEnterKey_VK  | event fired when the enter key is pressed on the virtual keyboard   | keyAscii, keyValue, newInputValue, oldInputValue      | 
+| onBackSpaceKey_VK | event fired when the backspace key is pressed on the virtual keyboard| keyAscii, keyValue, newInputValue, oldInputValue      |
+
+details of the event are accessible inside the event.detail property
+short example : 
+```js
+document.addEventListener('DOMContentLoaded', () => {
+    let element = document.querySelector('#MyInput');
+    element.addEventListener('onEnterKey_VK', (event) => {
+        console.log(event.detail.keyAscii);
+        console.log(event.detail.newInputValue);
+        console.log(event.detail.keyValue);
+        console.log(event.detail.newInputValue);
+    });
+}
+```
 ### Compatibility
 
  IE9+ , Chrome , Firefox, Opera

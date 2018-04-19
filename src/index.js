@@ -1,5 +1,7 @@
 import VirtualKeyboard from '../src/virtual-keyboard';
 
-document.addEventListener('DOMContentLoaded', () => {
-  new VirtualKeyboard().launchVirtualKeyboard();
-});
+['WebComponentsReady', 'DOMContentLoaded'].map((event) =>
+  document.addEventListener(event, () => {
+    new VirtualKeyboard().launchVirtualKeyboard();
+  })
+);

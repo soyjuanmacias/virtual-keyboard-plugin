@@ -19,8 +19,11 @@ const qwertyMapping = [
   { key: 'j', ascii: '106' },
   { key: 'k', ascii: '107' },
   { key: 'l', ascii: '108' },
-  { key: '\'', ascii: '39' },
-  { key: '<i class="fa fa-arrow-up" aria-hidden="true"></i>', action: 'uppercase' },
+  { key: "'", ascii: '39' },
+  {
+    key: '<i class="fa fa-arrow-up" aria-hidden="true"></i>',
+    action: 'uppercase'
+  },
   { key: 'z', ascii: '122' },
   { key: 'x', ascii: '120' },
   { key: 'c', ascii: '99' },
@@ -30,16 +33,16 @@ const qwertyMapping = [
   { key: 'm', ascii: '109' },
   {
     key: '<i class="fa fa-arrow-left" aria-hidden="true"></i>',
-    ascii: '',
+    ascii: '8',
     action: 'backspace',
-    class: 'backspace-key',
+    class: 'backspace-key'
   },
   { key: '#123?', action: 'numerics' },
   { key: ',', ascii: '44' },
   { key: '', action: 'emotes' },
   { key: 'Space', ascii: '32', class: 'space-key' },
   { key: '.', ascii: '46' },
-  { key: 'Enter', class: 'enter-key', action: 'enter' },
+  { key: 'Enter', ascii: '13', class: 'enter-key', action: 'enter' },
   ///// UPPERCASE KEYS
   { key: 'Q', ascii: '81' },
   { key: 'W', ascii: '87' },
@@ -51,7 +54,7 @@ const qwertyMapping = [
   { key: 'I', ascii: '73' },
   { key: 'O', ascii: '79' },
   { key: 'P', ascii: '80' },
-  { key: 'A', ascii: '65' },  
+  { key: 'A', ascii: '65' },
   { key: 'S', ascii: '83' },
   { key: 'D', ascii: '68' },
   { key: 'F', ascii: '70' },
@@ -60,8 +63,11 @@ const qwertyMapping = [
   { key: 'J', ascii: '74' },
   { key: 'K', ascii: '75' },
   { key: 'L', ascii: '76' },
-  { key: '\'', ascii: '39' },
-  { key: '<i class="fa fa-arrow-up" aria-hidden="true"></i>', action: 'lowercase' },
+  { key: "'", ascii: '39' },
+  {
+    key: '<i class="fa fa-arrow-up" aria-hidden="true"></i>',
+    action: 'lowercase'
+  },
   { key: 'Z', ascii: '90' },
   { key: 'X', ascii: '88' },
   { key: 'C', ascii: '67' },
@@ -71,16 +77,16 @@ const qwertyMapping = [
   { key: 'M', ascii: '77' },
   {
     key: '<i class="fa fa-arrow-left" aria-hidden="true"></i>',
-    ascii: '',
+    ascii: '8',
     action: 'backspace',
-    class: 'backspace-key',
+    class: 'backspace-key'
   },
   { key: '#123?', action: 'numerics' },
   { key: ',', ascii: '44' },
   { key: '', action: 'emotes' },
   { key: 'Space', ascii: '32', class: 'space-key' },
   { key: '.', ascii: '46' },
-  { key: 'Enter', class: 'enter-key', action: 'enter' },
+  { key: 'Enter', ascii: '13', class: 'enter-key', action: 'enter' },
   ////// NUMERIC AND EXTRA KEYS
   { key: '1', ascii: '49' },
   { key: '2', ascii: '50' },
@@ -105,23 +111,23 @@ const qwertyMapping = [
   { key: '=\\<', action: 'extrakeys' },
   { key: '*', ascii: '42' },
   { key: '"', ascii: '34' },
-  { key: '\'', ascii: '44' },
+  { key: "'", ascii: '44' },
   { key: ':', ascii: '58' },
   { key: ';', ascii: '59' },
   { key: '!', ascii: '33' },
   { key: '?', ascii: '63' },
   {
     key: '<i class="fa fa-arrow-left" aria-hidden="true"></i>',
-    ascii: '',
+    ascii: '8',
     action: 'backspace',
-    class: 'backspace-key',
+    class: 'backspace-key'
   },
   { key: 'ABC', action: 'lowercase' },
   { key: ',', ascii: '44' },
   { key: '', action: 'emotes' },
   { key: 'Space', ascii: '32', class: 'space-key' },
   { key: '.', ascii: '46' },
-  { key: 'Enter', class: 'enter-key', action: 'enter' },
+  { key: 'Enter', ascii: '13', class: 'enter-key', action: 'enter' },
   ///////EXTRA KEYS
   { key: '~', ascii: '126' },
   { key: '`', ascii: '94' },
@@ -146,17 +152,17 @@ const qwertyMapping = [
   { key: '#123?', action: 'numerics' },
   { key: '*', ascii: '42' },
   { key: '"', ascii: '34' },
-  { key: '\'', ascii: '44' },
+  { key: "'", ascii: '44' },
   { key: ':', ascii: '58' },
   { key: ';', ascii: '59' },
   { key: '!', ascii: '33' },
   { key: '?', ascii: '63' },
   {
     key: '<i class="fa fa-arrow-left" aria-hidden="true"></i>',
-    ascii: '',
+    ascii: '8',
     action: 'backspace',
-    class: 'backspace-key',
-  },
+    class: 'backspace-key'
+  }
 ];
 
 export default qwertyMapping;
