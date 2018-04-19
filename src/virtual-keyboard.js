@@ -10,6 +10,12 @@ const SECOND_ROW_LENGHT = 10;
 const THIRD_ROW_LENGHT = 9;
 const FOURTH_ROW_LENGHT = 6;
 
+const CUSTOM_EVENTS = {
+  VALUECHANGE: 'onInputValueChange_VK',
+  ENTER: 'onEnterKey_VK',
+  BACKSPACE: 'onBackSpaceKey_VK'
+};
+
 /**
  * Class of Virtual keyboad
  * @class VirtualKeyboard
@@ -30,34 +36,61 @@ export default class VirtualKeyboard {
     this.rows = [this.row1, this.row2, this.row3, this.row4];
     this.keys = null;
   }
+
   /**
-   * Add an event listener when the Enter key is clicked
-   * and set the behavior when this event is triggered
+   * Add an event listener when the Enter key is clicked and dispatch a new Custom Event
+   * with the value of the key pressed
    * @param {HTMLElement} key
+   * @param {number} indexMappingArray
+   * @param {any} mappingArray
    * @memberof VirtualKeyboard
    */
-  enterKeyEvent(key) {
+  enterKeyEvent(key, indexMappingArray, mappingArray) {
     key.addEventListener('click', () => {
+      const oldInputValue = this.currentInputElement.value;
       this.currentInputElement.value = `${this.currentInputElement.value.slice(
         0,
         this.inputCaretPosition
       )}\n${this.currentInputElement.value.slice(this.inputCaretPosition)}`;
       this.incrementCaretPosition();
+
+      const event = new CustomEvent(CUSTOM_EVENTS.ENTER, {
+        detail: {
+          keyAscii: mappingArray[indexMappingArray].ascii,
+          keyValue: mappingArray[indexMappingArray].key,
+          newInputValue: this.currentInputElement.value,
+          oldInputValue
+        }
+      });
+      this.currentInputElement.dispatchEvent(event);
     });
   }
   /**
-   * Add an event listener when the BackSpace key is clicked
+   * Add an event listener when the BackSpace key is clicked and trigger the callback
    * and set the behavior when this event is triggered
    * @param {HTMLElement} key
+   * @param {number} indexMappingArray
+   * @param {any} mappingArray
    * @memberof VirtualKeyboard
    */
-  backSpaceKeyEvent(key) {
+  backSpaceKeyEvent(key, indexMappingArray, mappingArray) {
     key.addEventListener('click', () => {
-      if (!this.currentInputElement.value || !this.inputCaretPosition) return;
-      this.currentInputElement.value =
-        this.currentInputElement.value.slice(0, this.inputCaretPosition - 1) +
-        this.currentInputElement.value.slice(this.inputCaretPosition);
-      this.decrementCaretPosition();
+      const oldInputValue = this.currentInputElement.value;
+      if (this.currentInputElement.value && this.inputCaretPosition) {
+        this.currentInputElement.value =
+          this.currentInputElement.value.slice(0, this.inputCaretPosition - 1) +
+          this.currentInputElement.value.slice(this.inputCaretPosition);
+        this.decrementCaretPosition();
+      }
+      const event = new CustomEvent(CUSTOM_EVENTS.BACKSPACE, {
+        detail: {
+          keyAscii: mappingArray[indexMappingArray].ascii,
+          keyValue: mappingArray[indexMappingArray].action,
+          newInputValue: this.currentInputElement.value,
+          oldInputValue
+        }
+      });
+      this.currentInputElement.dispatchEvent(event);
     });
   }
   /**
@@ -82,6 +115,8 @@ export default class VirtualKeyboard {
    * Add an event listener when the lowerCase key is clicked
    * and set the behavior when this event is triggered
    * @param {any} key
+   * @param {number} indexMappingArray
+   * @param {any} mappingArray
    * @memberof VirtualKeyboard
    */
   lowerCaseKeyEvent(key) {
@@ -130,6 +165,33 @@ export default class VirtualKeyboard {
           this.numericKeysRow3
         )
       );
+    });
+  }
+  /**
+   * Add an event listener when an input key is clicked and trigger the callback
+   * @param {any} key
+   * @param {number} index
+   * @param {any} mappingArray
+   * @memberof VirtualKeyboard
+   */
+  inputKeyEvent(key, indexMappingArray, mappingArray) {
+    key.addEventListener('click', () => {
+      const oldInputValue = this.currentInputElement.value;
+      this.currentInputElement.value =
+        this.currentInputElement.value.slice(0, this.inputCaretPosition) +
+        String.fromCharCode(mappingArray[indexMappingArray].ascii) +
+        this.currentInputElement.value.slice(this.inputCaretPosition);
+      this.incrementCaretPosition();
+
+      const event = new CustomEvent(CUSTOM_EVENTS.VALUECHANGE, {
+        detail: {
+          keyAscii: mappingArray[indexMappingArray].ascii,
+          keyValue: mappingArray[indexMappingArray].key,
+          newInputValue: this.currentInputElement.value,
+          oldInputValue
+        }
+      });
+      this.currentInputElement.dispatchEvent(event);
     });
   }
   /**
@@ -183,11 +245,11 @@ export default class VirtualKeyboard {
       }
 
       if (mappingArray[j].action === 'enter') {
-        this.enterKeyEvent(keys[i]);
+        this.enterKeyEvent(keys[i], j, mappingArray);
       }
 
       if (mappingArray[j].action === 'backspace') {
-        this.backSpaceKeyEvent(keys[i]);
+        this.backSpaceKeyEvent(keys[i], j, mappingArray);
       }
 
       if (mappingArray[j].action === 'uppercase') {
@@ -199,21 +261,15 @@ export default class VirtualKeyboard {
       }
 
       if (mappingArray[j].action === 'numerics') {
-        this.numericsKeyEvent(keys[i]);
+        this.numericsKeyEvent(keys[i], j, mappingArray);
       }
 
       if (mappingArray[j].action === 'extrakeys') {
-        this.extraKeyEvent(keys[i]);
+        this.extraKeyEvent(keys[i], j, mappingArray);
       }
 
       if (!mappingArray[j].action) {
-        keys[i].addEventListener('click', () => {
-          this.currentInputElement.value =
-            this.currentInputElement.value.slice(0, this.inputCaretPosition) +
-            String.fromCharCode(mappingArray[j].ascii) +
-            this.currentInputElement.value.slice(this.inputCaretPosition);
-          this.incrementCaretPosition();
-        });
+        this.inputKeyEvent(keys[i], j, mappingArray);
       }
     }
     return keys;
