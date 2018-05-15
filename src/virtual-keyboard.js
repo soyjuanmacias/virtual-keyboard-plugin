@@ -1,7 +1,7 @@
 /*
     Virtual Keyboard for web app
 */
-import 'babel-polyfill';
+import 'core-js/es6/array';
 import azertyMapping from './azerty-mapping';
 import qwertyMapping from './qwerty-mapping';
 
@@ -76,7 +76,16 @@ export default class VirtualKeyboard {
   backSpaceKeyEvent(key, indexMappingArray, mappingArray) {
     key.addEventListener('click', () => {
       const oldInputValue = this.currentInputElement.value;
-      if (this.currentInputElement.value && this.inputCaretPosition) {
+      const startIndex = this.currentInputElement.selectionStart;
+      const endIndex = this.currentInputElement.selectionEnd;
+      if (startIndex !== endIndex) {
+        this.currentInputElement.value = oldInputValue.substring(0, startIndex) + oldInputValue.substring(endIndex, oldInputValue.length);
+        this.currentInputElement.setSelectionRange(
+          this.inputCaretPosition,
+          this.inputCaretPosition
+        );
+        this.currentInputElement.focus();
+      } else if (this.currentInputElement.value && this.inputCaretPosition) {
         this.currentInputElement.value =
           this.currentInputElement.value.slice(0, this.inputCaretPosition - 1) +
           this.currentInputElement.value.slice(this.inputCaretPosition);
