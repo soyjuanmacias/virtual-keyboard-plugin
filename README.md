@@ -28,9 +28,9 @@ $ yarn add virtual-keyboard-plugin --save
  You can also skip yarn/npm install by using repos on the cdn 
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/virtual-keyboard-plugin@1.1.1/dist/virtual-keyboard.css">
+<link rel="stylesheet" href="https://unpkg.com/virtual-keyboard-plugin@1.2.1/dist/virtual-keyboard.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://unpkg.com/virtual-keyboard-plugin@1.1.1/dist/virtual-keyboard.min.js"></script>
+<script src="https://unpkg.com/virtual-keyboard-plugin@1.2.1/dist/virtual-keyboard.min.js"></script>
 ```
 
 ## Configuration
