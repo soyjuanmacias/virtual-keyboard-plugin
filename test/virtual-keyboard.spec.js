@@ -135,6 +135,28 @@ describe('virtualkeyboard', () => {
     ).toHaveBeenCalledWith(new CustomEvent());
   });
 
+  it('should delete the selected text when backspacing with virtual keyboard', () => {
+    virtualkeyboardInstance.launchVirtualKeyboard();
+    spyOn(virtualkeyboardInstance.currentInputElement, 'focus');
+    spyOn(virtualkeyboardInstance.currentInputElement, 'setSelectionRange');
+
+    virtualkeyboardInstance.launchVirtualKeyboard();
+    virtualkeyboardInstance.currentInputElement.value = 'testdeleting with backspace';
+    virtualkeyboardInstance.currentInputElement.selectionStart = 9;
+    virtualkeyboardInstance.currentInputElement.selectionEnd = 16;
+    const backspaceKey = virtualkeyboardInstance.keys.find(
+      (element) =>
+        element.outerHTML ===
+        '<div class="key backspace-key" data-action="backspace" data-ascii="8">' +
+          '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
+          '</div>'
+    );
+    backspaceKey.click();
+    expect(virtualkeyboardInstance.currentInputElement.value).toEqual('testdeleth backspace');
+    expect(virtualkeyboardInstance.currentInputElement.setSelectionRange).toHaveBeenCalled();
+    expect(virtualkeyboardInstance.currentInputElement.focus).toHaveBeenCalled();
+  });
+
   it('should delete a character before the caret position', () => {
     virtualkeyboardInstance.launchVirtualKeyboard();
     virtualkeyboardInstance.currentInputElement.value = 'test1';
