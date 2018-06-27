@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(event.detail.keyValue);
         console.log(event.detail.newInputValue);
     });
-}
+})
 ```
 ### Compatibility
 
